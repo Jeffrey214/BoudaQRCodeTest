@@ -8,8 +8,8 @@ os.makedirs(qr_folder, exist_ok=True)
 # Prompt user for the page name
 page_name = input("Enter the HTML page name (without .html): ")
 
-# Construct the full URL
-hosted_url = f"https://jeffrey214.github.io/BoudaQRCodeTest/{page_name}.html"
+# Construct the full URL with the correct folder structure
+hosted_url = f"https://jeffrey214.github.io/BoudaQRCodeTest/HTMLFiles/{page_name}.html"
 
 # Generate a fresh QR Code
 qr = qrcode.make(hosted_url)
