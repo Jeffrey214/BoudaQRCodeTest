@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dělostřelecká Tvrz Bouda Úvod</title>
+  <style>
+    /* Base styles */
+    body {
+      background-color: #bebba1;
+      color: #6f6e57;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .flag-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .flag-container img {
+      width: 40px;
+      height: auto;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: border-color 0.3s;
+    }
+    .flag-container img.active {
+      border-color: #fff;
+    }
+    .header-container {
+      background-color: #6f6e57;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+    /* The logo container now forces a horizontal row */
+    .logo-container {
+      display: flex;
+      gap: 10px;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+    }
+    /* Default logo size for desktops and portrait phones */
+    .logo-container img {
+      max-height: 80px;
+      height: auto;
+      width: auto;
+    }
+    /* Increase logo size slightly for phones in landscape mode */
+    @media (max-width: 767px) and (orientation: landscape) {
+      .logo-container img {
+        max-height: 100px;
+      }
+    }
+    .header-title {
+      color: white;
+      font-size: 2.5vw; /* Responsive font size */
+      font-weight: bold;
+      margin-top: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .content {
+      max-width: 90%;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #f4f4f4;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+      text-align: justify;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    /* Adjust header title and content for smaller screens */
+    @media (max-width: 768px) {
+      .header-title {
+        font-size: 4vw;
+      }
+      .content {
+        font-size: 0.95rem;
+        padding: 15px;
+      }
+    }
+    @media (max-width: 480px) {
+      .header-title {
+        font-size: 5vw;
+      }
+      .content {
+        font-size: 0.9rem;
+        padding: 10px;
+      }
+    }
+  </style>
+  <script>
+    function changeLanguage(lang) {
+        const content = {
+            "cs": "Vítáme Vás u prohlídky dělostřelecké tvrze BOUDA, součásti čs. opevnění z let 1935–1938. Tato pevnost byla nejen strategickou obrannou stavbou, ale během války sloužila i k testování německých zbraní proti opevnění. Během bojů byl poškozen vchodový objekt – odstranili se z něj střílna pro těžký kulomet a pancéřové zvony. Ty, které nebyly evakuovány, byly po válce předány Národnímu podniku Kovošrot. V polovině 40. let se uvažovalo o využití tvrze jako vojenského skladu, a proto byly poškozené části vchodového srubu odstřeleny a následně zrekonstruovány podle původní dokumentace.\n\nCelá tvrz, známá jako Bouda, zahrnuje přibližně 1,5 km podzemních chodeb a pět povrchových objektů. Podzemní prostory sloužily jako muniční sklady, ubikace a záložní zdroj elektrické energie. Nejblíže nepříteli byly umístěny tři pěchotní sruby – Kazi, Teta a Libuše, za nimiž se nachází objekt Horymír s otočnou výsuvnou dělostřeleckou věží. Vchodový objekt je situován na odvrácené straně kopce a do podzemí vede 26 schodů úzkou chodbou, po níž byl materiál přepravován pomocí šikmého výtahu tvořeného klínovými vozíky.",
+  
+            "en": "Welcome to the tour of the artillery fortress BOUDA, part of the Czechoslovak fortifications built between 1935 and 1938. This stronghold was not only a strategic defensive installation but also served during the war to test German weapons against fortifications. During the fighting, the entrance structure was damaged – the casemate for the heavy machine gun and the armored turrets were removed. The ones that were not evacuated were later handed over to the National Enterprise Kovošrot after the war. In the mid-1940s, there were plans to use the fortress as a military depot, so the damaged parts of the entrance bunker were demolished and rebuilt according to the original plans.\n\nThe entire fortress, known as Bouda, includes approximately 1.5 km of underground corridors and five surface structures. The underground areas housed ammunition depots, barracks, and a backup electrical supply. The three infantry bunkers closest to the enemy – Kazi, Teta, and Libuše – are positioned near the Horymír object with its revolving, extendable artillery turret. The entrance is located on the hillside’s sheltered side, and 26 steps in a narrow corridor lead underground, where materials were moved using an inclined lift formed by wedge-shaped trolleys.",
+  
+            "de": "Willkommen zur Führung durch die Artilleriefestung BOUDA, einem Teil der tschechoslowakischen Befestigungsanlagen aus den Jahren 1935–1938. Diese Festung war nicht nur eine strategische Verteidigungsanlage, sondern diente im Krieg auch dazu, deutsche Waffen an Befestigungsanlagen zu testen. Während der Kämpfe wurde der Eingangsbereich beschädigt – die Schießschanze für das schwere Maschinengewehr und die panzerartigen Türme wurden entfernt. Die nicht evakuierten Teile wurden nach dem Krieg an das Nationale Unternehmen Kovošrot übergeben. In den mittleren 40er Jahren wurde überlegt, die Festung als Militärdepot zu nutzen, weshalb die beschädigten Teile des Eingangsbunkers abgerissen und nach den ursprünglichen Plänen wieder aufgebaut wurden.\n\nDie gesamte Festung, bekannt als Bouda, umfasst etwa 1,5 km unterirdische Gänge und fünf oberirdische Objekte. Die unterirdischen Bereiche dienten als Munitionslager, Unterkünfte und als Notstromversorgung. Den feindlichen Linien am nächsten lagen drei Infanteriebunker – Kazi, Teta und Libuše –, hinter denen sich das Objekt Horymír mit einem drehbaren, ausfahrbaren Artillerieturm befindet. Der Eingangsbereich liegt auf der abgewandten Seite des Hügels, und 26 Stufen in einem schmalen Gang führen in den Untergrund, wo Material mit einem geneigten Aufzug aus keilförmigen Wagen transportiert wurde.",
+  
+            "pl": "Witamy na zwiedzaniu dělostřeleckiej twierdzy BOUDA, będącej częścią czesko-słowackich umocnień z lat 1935–1938. Twierdza ta była nie tylko strategiczną budowlą obronną, ale podczas wojny służyła również do testowania niemieckiej broni przeciwko fortyfikacjom. Podczas walk uszkodzono obiekt wejściowy – usunięto stanowisko ciężkiego karabinu maszynowego oraz pancernych dzwonów. Te, które nie zostały ewakuowane, po wojnie przekazano Narodowemu Przedsiębiorstwu Kovošrot. W połowie lat 40. rozważano wykorzystanie twierdzy jako wojskowego magazynu, w związku z czym uszkodzone części wejściowego bunkra zostały wyburzone i odbudowane według oryginalnej dokumentacji.\n\nCała twierdza, znana jako Bouda, obejmuje około 1,5 km podziemnych korytarzy oraz pięć obiektów naziemnych. Podziemia służyły jako magazyny amunicji, kwatery oraz zapasowe źródło energii elektrycznej. Najbliżej wroga znajdowały się trzy bunkry piechoty – Kazi, Teta i Libuše – za którymi usytuowany jest obiekt Horymír z obrotową, wysuwaną wieżą artyleryjską. Obiekt wejściowy mieści się po stronie odwróconej od wroga, a do podziemi prowadzi 26 schodów w wąskim korytarzu, po których materiał był transportowany za pomocą pochylnego windy utworzonej z klinowych wózków."
+        };
+
+
+      const titles = {
+        "cs": "2. Svážnice",
+        "en": "2. Inclined Elevator",
+        "de": "1. Einführung",
+        "pl": "1. Wprowadzenie"
+      };
+      document.getElementById("content-text").innerText = content[lang];
+      document.getElementById("header-title").innerText = titles[lang];
+      document.querySelectorAll(".flag-container img").forEach(img => img.classList.remove("active"));
+      document.querySelector(`.flag-container img[alt='${lang}']`).classList.add("active");
+    }
+  </script>
+</head>
+<body onload="changeLanguage('cs')">
+  <div class="flag-container">
+    <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Flags/cs.png" alt="cs" onclick="changeLanguage('cs')" class="active">
+    <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Flags/en.png" alt="en" onclick="changeLanguage('en')">
+    <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Flags/de.png" alt="de" onclick="changeLanguage('de')">
+    <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Flags/pl.png" alt="pl" onclick="changeLanguage('pl')">
+  </div>
+  <div class="header-container">
+    <div class="header">
+      <div class="logo-container">
+        <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Logos/BoudaLogo.PNG" alt="Bouda Logo">
+        <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Logos/PardubiceLogo.PNG" alt="Pardubice Logo">
+      </div>
+      <div class="header-title" id="header-title">1. Úvod</div>
+    </div>
+  </div>
+  <div class="content">
+    <p id="content-text"></p>
+  </div>
+</body>
+</html>
