@@ -1,117 +1,167 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dělostřelecká Tvrz Bouda Úvod</title>
-    <style>
-        body {
-            background-color: #bebba1;
-            color: #6f6e57;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        .flag-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        .flag-container img {
-            width: 40px;
-            height: auto;
-            border-radius: 10px;
-            cursor: pointer;
-            border: 3px solid transparent;
-        }
-        .flag-container img.active {
-            border-color: #fff;
-        }
-        .header-container {
-            background-color: #6f6e57;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .logo-container {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .header img {
-            height: 80px;
-        }
-        .header-title {
-            color: white;
-            font-size: 22px;
-            font-weight: bold;
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .content {
-            max-width: 90%;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #f4f4f4;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-            text-align: justify;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-    </style>
-    <script>
-        function changeLanguage(lang) {
-            const content = {
-                "cs": "Dělostřelecká tvrz BOUDA je jedním z mnoha objektů československého opevnění, jež bylo budováno ve třicátých letech minulého století. Výstavba rozsáhlého systému opevnění představovala nedílnou součást příprav československé armády na obranu republiky. Rozhodujícím záměrem tehdejšího velení armády bylo pomocí stálého opevnění zčásti vyrovnat početní a materiální převahu nepřátel a vytvořit v případném konfliktu co nejpříznivější podmínky k obraně státu. Jednalo se o velmi důkladně uvážený krok, jenž byl v souladu s nástupovými plány armády a jejími předpokládanými obrannými manévry. Tyto plány zohledňovaly materiální a lidské možnosti státu, jeho geografickou polohu, nevýhodný tvar státního území, délku hranic s potenciálními útočníky, jejich sílu a celou řadu dalších, pro obranu důležitých aspektů.\n\nStálé opevnění tvořilo těžké opevnění – pěchotní sruby, jejichž linie byla na nejdůležitějších místech vyztužena dělostřeleckými tvrzemi, a lehké opevnění – pevnůstky vzor 36 a dokonalejší objekty vzor 37. Součást stálého opevnění tvořily rovněž systém protitankových a protipěchotních překážek, kasárna pro pevnostní jednotky, sítě vojenských silnic a cest, systém pevnostní telefonní kabelové sítě.\n\nTěžké opevnění mělo přehrazovat jen pro obranu nejdůležitější směry, lehké opevnění vyrůstalo podél celých hranic Čech, Moravy, Slezska, na jižním Slovensku i Podkarpatské Rusi. Stejné objekty tvořily záchytné linie ve vnitrozemí republiky. Plán předpokládal výstavbu 16 000 lehkých objektů a téměř 1 300 objektů těžkého opevnění, s předpokládaným ukončením prací v r. 1951. Práce však byly přerušeny v říjnu 1938 přijetím mnichovského diktátu. Do té doby byla vynaložena asi jedna čtvrtina plánovaných nákladů, postaveno bylo přes 10 000 lehkých a 263 těžkých objektů. Práce byly i v obtížných podmínkách provedeny rychle, v utajení a přitom ve výborné kvalitě.",
-                "en": "The artillery fortress BOUDA is one of the many structures of Czechoslovak fortifications built during the 1930s. The construction of an extensive fortification system was an integral part of the Czechoslovak army’s preparations for the defense of the republic. The decisive intent of the military leadership at the time was to partially offset the numerical and material superiority of the enemy through permanent fortifications and to create the most favorable conditions for the defense of the state in the event of a conflict. It was a very carefully considered step, in line with the army’s mobilization plans and its anticipated defensive maneuvers. These plans took into account the state’s material and human resources, its geographical position, the disadvantageous shape of its territory, the length of its borders with potential attackers, their strength, and a host of other factors crucial for defense.\n\nThe permanent fortifications consisted of heavy fortifications – infantry pillboxes whose lines were reinforced at the most critical points by artillery fortresses – and light fortifications, namely model 36 fortresses and the more advanced model 37 structures. The system also included a network of anti-tank and anti-infantry obstacles, barracks for fortress units, networks of military roads and paths, and a system of fortress telephone cable networks.\n\nHeavy fortifications were intended to cover only the defense of the most vital directions, while light fortifications were built along the entire borders of Bohemia, Moravia, and Silesia, as well as in southern Slovakia and Subcarpathian Rus. Similar structures formed reserve lines in the interior of the republic. The plan anticipated the construction of 16,000 light structures and nearly 1,300 heavy fortifications, with an expected completion in 1951. However, the work was interrupted in October 1938 by the Munich Agreement. By that time, about one quarter of the planned budget had been spent, with over 10,000 light and 263 heavy structures built. The work was carried out quickly, in secrecy, and with excellent quality even under difficult conditions.",
-                "de": "Die Artilleriefestung BOUDA ist eines der zahlreichen Objekte tschechoslowakischer Befestigungsanlagen, die in den 1930er Jahren errichtet wurden. Der Bau eines umfangreichen Befestigungssystems war ein integraler Bestandteil der Vorbereitungen der tschechoslowakischen Armee auf die Verteidigung der Republik. Das entscheidende Ziel der damaligen Armeeführung war es, durch dauerhafte Befestigungen den zahlenmäßigen und materiellen Überhang des Feindes teilweise auszugleichen und im Falle eines Konflikts möglichst günstige Bedingungen für die Verteidigung des Staates zu schaffen. Es war ein sehr sorgfältig abgewogener Schritt, der im Einklang mit den Mobilisierungsplänen der Armee und ihren erwarteten Verteidigungsmanövern stand. Diese Pläne berücksichtigten die materiellen und personellen Möglichkeiten des Staates, seine geografische Lage, die ungünstige Form seines Staatsgebiets, die Länge der Grenzen zu potenziellen Angreifern, deren Stärke und eine Vielzahl weiterer entscheidender Aspekte für die Verteidigung.\n\nDas dauerhafte Befestigungssystem bestand aus schweren Befestigungen – Infanterie-Bunkern, deren Linien an den wichtigsten Stellen durch Artilleriefestungen verstärkt wurden – und leichten Befestigungen, nämlich Festungen des Typs 36 und weiterentwickelten Objekten des Typs 37. Zum System gehörte außerdem ein Netz von Panzerabwehr- und Infanteriehindernissen, Kasernen für Festungseinheiten, ein Netz von Militärstraßen und Wegen sowie ein System fester Festungs-Telefonkabel.\n\nSchwere Befestigungen waren ausschließlich zur Verteidigung der wichtigsten Richtungen vorgesehen, während leichte Befestigungen entlang der gesamten Grenzen von Böhmen, Mähren und Schlesien sowie im südlichen Slowakei und in der Unterkarpatenruth errichtet wurden. Ähnliche Objekte bildeten die Rückfalllinien im Landesinneren der Republik. Der Plan sah den Bau von 16.000 leichten Objekten und fast 1.300 schweren Befestigungen vor, mit einem erwarteten Abschluss der Arbeiten im Jahr 1951. Die Arbeiten wurden jedoch im Oktober 1938 durch das Münchner Abkommen unterbrochen. Bis zu diesem Zeitpunkt war etwa ein Viertel des geplanten Budgets aufgewendet worden, es wurden über 10.000 leichte und 263 schwere Objekte errichtet. Die Arbeiten wurden selbst unter schwierigen Bedingungen schnell, geheim und in ausgezeichneter Qualität durchgeführt.",
-                "pl": "Fortyfikacja artyleryjska BOUDA jest jednym z wielu obiektów czeskosłowackiego systemu umocnień, budowanego w latach 30. XX wieku. Budowa rozległego systemu umocnień stanowiła integralną część przygotowań armii czeskosłowackiej do obrony republiki. Decydującym zamiarem ówczesnego dowództwa było częściowe zrównoważenie liczebnej i materialnej przewagi przeciwnika poprzez stałe umocnienia oraz stworzenie jak najkorzystniejszych warunków do obrony państwa w przypadku konfliktu. Był to bardzo starannie przemyślany krok, zgodny z planami mobilizacyjnymi armii oraz przewidywanymi manewrami obronnymi. Plany te uwzględniały możliwości materialne i ludzkie państwa, jego położenie geograficzne, niekorzystny kształt terytorium, długość granic z potencjalnymi agresorami, ich siłę oraz szereg innych istotnych aspektów obronnych.\n\nStałe umocnienia składały się z ciężkich umocnień – schronów piechoty, których linie były na najważniejszych odcinkach wzmacniane przez fortyfikacje artyleryjskie – oraz lekkich umocnień, czyli obiektów wzoru 36 oraz udoskonalonych obiektów wzoru 37. Do systemu stałych umocnień należał także system przeszkód przeciwpancerna i przeciwpiechotnej, koszary dla jednostek obronnych, sieć dróg i ścieżek wojskowych oraz system fortecznych kabli telefonicznych.\n\nCiężkie umocnienia miały zabezpieczać jedynie obronę najważniejszych kierunków, podczas gdy lekkie umocnienia rozciągały się wzdłuż całych granic Czech, Moraw i Śląska, a także na południowej Słowacji oraz w Rusi Podkarpackiej. Podobne obiekty stanowiły linie rezerwowe w głębi kraju. Plan zakładał budowę 16 000 lekkich obiektów oraz niemal 1 300 ciężkich umocnień, z planowanym zakończeniem prac w roku 1951. Prace zostały jednak przerwane w październiku 1938 roku w wyniku podpisania układu monachijskiego. Do tego czasu wydano około jednej czwartej planowanych środków, wybudowano ponad 10 000 lekkich i 263 ciężkich obiektów. Prace te zostały wykonane szybko, w tajemnicy i przy zachowaniu bardzo wysokiej jakości, nawet w trudnych warunkach."
-            };
-            const titles = {
-                "cs": "1. Úvod",
-                "en": "1. Introduction",
-                "de": "1. Einführung",
-                "pl": "1. Wprowadzenie"
-            };
-            document.getElementById("content-text").innerText = content[lang];
-            document.getElementById("header-title").innerText = titles[lang];
-            document.querySelectorAll(".flag-container img").forEach(img => img.classList.remove("active"));
-            document.querySelector(`.flag-container img[alt='${lang}']`).classList.add("active");
-        }
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dělostřelecká Tvrz Bouda Úvod</title>
+  <style>
+    /* Base styles */
+    body {
+      background-color: #bebba1;
+      color: #6f6e57;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .flag-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .flag-container img {
+      width: 40px;
+      height: auto;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: border-color 0.3s;
+    }
+    .flag-container img.active {
+      border-color: #fff;
+    }
+    .header-container {
+      background-color: #6f6e57;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+    .logo-container {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .logo-container img {
+      /* Use a relative unit for height for responsiveness */
+      max-height: 10vh;
+      height: auto;
+      width: auto;
+    }
+    .header-title {
+      color: white;
+      font-size: 2.5vw; /* Responsive font size */
+      font-weight: bold;
+      margin-top: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .content {
+      max-width: 90%;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #f4f4f4;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+      text-align: justify;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Media queries for smaller screens */
+    @media (max-width: 768px) {
+      .logo-container img {
+        max-height: 8vh;
+      }
+      .header-title {
+        font-size: 4vw;
+      }
+      .content {
+        font-size: 0.95rem;
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-container img {
+        max-height: 7vh;
+      }
+      .header-title {
+        font-size: 5vw;
+      }
+      .content {
+        font-size: 0.9rem;
+        padding: 10px;
+      }
+    }
+
+    /* Media queries for very wide or tall screens */
+    @media (min-aspect-ratio: 16/9) {
+      .header-title {
+        font-size: 2vw;
+      }
+    }
+    @media (max-aspect-ratio: 9/16) {
+      .header-title {
+        font-size: 6vw;
+      }
+    }
+  </style>
+  <script>
+    function changeLanguage(lang) {
+      const content = {
+        "cs": "Dělostřelecká tvrz BOUDA je jedním z mnoha objektů československého opevnění, jež bylo budováno ve třicátých letech minulého století. Výstavba rozsáhlého systému opevnění představovala nedílnou součást příprav československé armády na obranu republiky. Rozhodujícím záměrem tehdejšího velení armády bylo pomocí stálého opevnění zčásti vyrovnat početní a materiální převahu nepřátel a vytvořit v případném konfliktu co nejpříznivější podmínky k obraně státu. Jednalo se o velmi důkladně uvážený krok, jenž byl v souladu s nástupovými plány armády a jejími předpokládanými obrannými manévry. Tyto plány zohledňovaly materiální a lidské možnosti státu, jeho geografickou polohu, nevýhodný tvar státního území, délku hranic s potenciálními útočníky, jejich sílu a celou řadu dalších, pro obranu důležitých aspektů.\n\nStálé opevnění tvořilo těžké opevnění – pěchotní sruby, jejichž linie byla na nejdůležitějších místech vyztužena dělostřeleckými tvrzemi, a lehké opevnění – pevnůstky vzor 36 a dokonalejší objekty vzor 37. Součást stálého opevnění tvořily rovněž systém protitankových a protipěchotních překážek, kasárna pro pevnostní jednotky, sítě vojenských silnic a cest, systém pevnostní telefonní kabelové sítě.\n\nTěžké opevnění mělo přehrazovat jen pro obranu nejdůležitější směry, lehké opevnění vyrůstalo podél celých hranic Čech, Moravy, Slezska, na jižním Slovensku i Podkarpatské Rusi. Stejné objekty tvořily záchytné linie ve vnitrozemí republiky. Plán předpokládal výstavbu 16 000 lehkých objektů a téměř 1 300 objektů těžkého opevnění, s předpokládaným ukončením prací v r. 1951. Práce však byly přerušeny v říjnu 1938 přijetím mnichovského diktátu. Do té doby byla vynaložena asi jedna čtvrtina plánovaných nákladů, postaveno bylo přes 10 000 lehkých a 263 těžkých objektů. Práce byly i v obtížných podmínkách provedeny rychle, v utajení a přitom ve výborné kvalitě.",
+        "en": "The artillery fortress BOUDA is one of the many structures of Czechoslovak fortifications built during the 1930s. The construction of an extensive fortification system was an integral part of the Czechoslovak army’s preparations for the defense of the republic. The decisive intent of the military leadership at the time was to partially offset the numerical and material superiority of the enemy through permanent fortifications and to create the most favorable conditions for the defense of the state in the event of a conflict. It was a very carefully considered step, in line with the army’s mobilization plans and its anticipated defensive maneuvers. These plans took into account the state’s material and human resources, its geographical position, the disadvantageous shape of its territory, the length of its borders with potential attackers, their strength, and a host of other factors crucial for defense.\n\nThe permanent fortifications consisted of heavy fortifications – infantry pillboxes whose lines were reinforced at the most critical points by artillery fortresses – and light fortifications, namely model 36 fortresses and the more advanced model 37 structures. The system also included a network of anti-tank and anti-infantry obstacles, barracks for fortress units, networks of military roads and paths, and a system of fortress telephone cable networks.\n\nHeavy fortifications were intended to cover only the defense of the most vital directions, while light fortifications were built along the entire borders of Bohemia, Moravia, and Silesia, as well as in southern Slovakia and Subcarpathian Rus. Similar structures formed reserve lines in the interior of the republic. The plan anticipated the construction of 16,000 light structures and nearly 1,300 heavy fortifications, with an expected completion in 1951. However, the work was interrupted in October 1938 by the Munich Agreement. By that time, about one quarter of the planned budget had been spent, with over 10,000 light and 263 heavy structures built. The work was carried out quickly, in secrecy, and with excellent quality even under difficult conditions.",
+        "de": "Die Artilleriefestung BOUDA ist eines der zahlreichen Objekte tschechoslowakischer Befestigungsanlagen, die in den 1930er Jahren errichtet wurden. Der Bau eines umfangreichen Befestigungssystems war ein integraler Bestandteil der Vorbereitungen der tschechoslowakischen Armee auf die Verteidigung der Republik. Das entscheidende Ziel der damaligen Armeeführung war es, durch dauerhafte Befestigungen den zahlenmäßigen und materiellen Überhang des Feindes teilweise auszugleichen und im Falle eines Konflikts möglichst günstige Bedingungen für die Verteidigung des Staates zu schaffen. Es war ein sehr sorgfältig abgewogener Schritt, der im Einklang mit den Mobilisierungsplänen der Armee und ihren erwarteten Verteidigungsmanövern stand. Diese Pläne berücksichtigten die materiellen und personellen Möglichkeiten des Staates, seine geografische Lage, die ungünstige Form seines Staatsgebiets, die Länge der Grenzen zu potenziellen Angreifern, deren Stärke und eine Vielzahl weiterer entscheidender Aspekte für die Verteidigung.\n\nDas dauerhafte Befestigungssystem bestand aus schweren Befestigungen – Infanterie-Bunkern, deren Linien an den wichtigsten Stellen durch Artilleriefestungen verstärkt wurden – und leichten Befestigungen, nämlich Festungen des Typs 36 und weiterentwickelten Objekten des Typs 37. Zum System gehörte außerdem ein Netz von Panzerabwehr- und Infanteriehindernissen, Kasernen für Festungseinheiten, ein Netz von Militärstraßen und Wegen sowie ein System fester Festungs-Telefonkabel.\n\nSchwere Befestigungen waren ausschließlich zur Verteidigung der wichtigsten Richtungen vorgesehen, während leichte Befestigungen entlang der gesamten Grenzen von Böhmen, Mähren und Schlesien sowie im südlichen Slowakei und in der Unterkarpatenruth errichtet wurden. Ähnliche Objekte bildeten die Rückfalllinien im Landesinneren der Republik. Der Plan sah den Bau von 16.000 leichten Objekten und fast 1.300 schweren Befestigungen vor, mit einem erwarteten Abschluss der Arbeiten im Jahr 1951. Die Arbeiten wurden jedoch im Oktober 1938 durch das Münchner Abkommen unterbrochen. Bis zu diesem Zeitpunkt war etwa ein Viertel des geplanten Budgets aufgewendet worden, es wurden über 10.000 leichte und 263 schwere Objekte errichtet. Die Arbeiten wurden selbst unter schwierigen Bedingungen schnell, geheim und in ausgezeichneter Qualität durchgeführt.",
+        "pl": "Fortyfikacja artyleryjska BOUDA jest jednym z wielu obiektów czeskosłowackiego systemu umocnień, budowanego w latach 30. XX wieku. Budowa rozległego systemu umocnień stanowiła integralną część przygotowań armii czeskosłowackiej do obrony republiki. Decydującym zamiarem ówczesnego dowództwa było częściowe zrównoważenie liczebnej i materialnej przewagi przeciwnika poprzez stałe umocnienia oraz stworzenie jak najkorzystniejszych warunków do obrony państwa w przypadku konfliktu. Był to bardzo starannie przemyślany krok, zgodny z planami mobilizacyjnymi armii oraz przewidywanymi manewrami obronnymi. Plany te uwzględniały możliwości materialne i ludzkie państwa, jego położenie geograficzne, niekorzystny kształt terytorium, długość granic z potencjalnymi agresorami, ich siłę oraz szereg innych istotnych aspektów obronnych.\n\nStałe umocnienia składały się z ciężkich umocnień – schronów piechoty, których linie były na najważniejszych odcinkach wzmacniane przez fortyfikacje artyleryjskie – oraz lekkich umocnień, czyli obiektów wzoru 36 oraz udoskonalonych obiektów wzoru 37. Do systemu stałych umocnień należał także system przeszkód przeciwpancerna i przeciwpiechotnej, koszary dla jednostek obronnych, sieć dróg i ścieżek wojskowych oraz system fortecznych kabli telefonicznych.\n\nCiężkie umocnienia miały zabezpieczać jedynie obronę najważniejszych kierunków, podczas gdy lekkie umocnienia rozciągały się wzdłuż całych granic Czech, Moraw i Śląska, a także na południowej Słowacji oraz w Rusi Podkarpackiej. Podobne obiekty stanowiły linie rezerwowe w głębi kraju. Plan zakładał budowę 16 000 lekkich obiektów oraz niemal 1 300 ciężkich umocnień, z planowanym zakończeniem prac w roku 1951. Prace zostały jednak przerwane w październiku 1938 roku w wyniku podpisania układu monachijskiego. Do tego czasu wydano około jednej czwartej planowanych środków, wybudowano ponad 10 000 lekkich i 263 ciężkich obiektów. Prace te zostały wykonane szybko, w tajemnicy i przy zachowaniu bardzo wysokiej jakości, nawet w trudnych warunkach."
+      };
+      const titles = {
+        "cs": "1. Úvod",
+        "en": "1. Introduction",
+        "de": "1. Einführung",
+        "pl": "1. Wprowadzenie"
+      };
+      document.getElementById("content-text").innerText = content[lang];
+      document.getElementById("header-title").innerText = titles[lang];
+      document.querySelectorAll(".flag-container img").forEach(img => img.classList.remove("active"));
+      document.querySelector(`.flag-container img[alt='${lang}']`).classList.add("active");
+    }
+  </script>
 </head>
 <body onload="changeLanguage('cs')">
-    <div class="flag-container">
-        <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Flags/cs.png" alt="cs" onclick="changeLanguage('cs')" class="active">
-        <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Flags/en.png" alt="en" onclick="changeLanguage('en')">
-        <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Flags/de.png" alt="de" onclick="changeLanguage('de')">
-        <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Flags/pl.png" alt="pl" onclick="changeLanguage('pl')">
+  <div class="flag-container">
+    <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Flags/cs.png" alt="cs" onclick="changeLanguage('cs')" class="active">
+    <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Flags/en.png" alt="en" onclick="changeLanguage('en')">
+    <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Flags/de.png" alt="de" onclick="changeLanguage('de')">
+    <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Flags/pl.png" alt="pl" onclick="changeLanguage('pl')">
+  </div>
+  <div class="header-container">
+    <div class="header">
+      <div class="logo-container">
+        <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Logos/BoudaLogo.PNG" alt="Bouda Logo">
+        <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Logos/PardubiceLogo.PNG" alt="Pardubice Logo">
+      </div>
+      <div class="header-title" id="header-title">1. Úvod</div>
     </div>
-    <div class="header-container">
-        <div class="header">
-            <div class="logo-container">
-                <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Logos/BoudaLogo.PNG" alt="Bouda Logo">
-                <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Logos/PardubiceLogo.PNG" alt="Pardubice Logo">
-            </div>
-            <div class="header-title" id="header-title">1. Úvod</div>
-        </div>
-    </div>
-    <div class="content">
-        <p id="content-text"></p>
-    </div>
+  </div>
+  <div class="content">
+    <p id="content-text"></p>
+  </div>
 </body>
 </html>
