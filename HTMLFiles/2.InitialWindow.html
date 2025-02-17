@@ -52,10 +52,11 @@
       padding: 0 10px;
       box-sizing: border-box;
     }
+    /* The logo container now forces a horizontal row */
     .logo-container {
       display: flex;
       gap: 10px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: center;
       align-items: center;
     }
@@ -90,7 +91,6 @@
       font-size: 1rem;
       line-height: 1.6;
     }
-    
     /* Adjust header title and content for smaller screens */
     @media (max-width: 768px) {
       .header-title {
