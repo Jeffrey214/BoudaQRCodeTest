@@ -57,12 +57,19 @@
       gap: 10px;
       flex-wrap: wrap;
       justify-content: center;
+      align-items: center;
     }
+    /* Default logo size for desktops and portrait phones */
     .logo-container img {
-      /* Increase logo size for prominence */
-      max-height: 20vh;
+      max-height: 80px;
       height: auto;
       width: auto;
+    }
+    /* Increase logo size slightly for phones in landscape mode */
+    @media (max-width: 767px) and (orientation: landscape) {
+      .logo-container img {
+        max-height: 100px;
+      }
     }
     .header-title {
       color: white;
@@ -83,12 +90,9 @@
       font-size: 1rem;
       line-height: 1.6;
     }
-
-    /* Media queries for smaller screens */
+    
+    /* Adjust header title and content for smaller screens */
     @media (max-width: 768px) {
-      .logo-container img {
-        max-height: 18vh;
-      }
       .header-title {
         font-size: 4vw;
       }
@@ -97,29 +101,13 @@
         padding: 15px;
       }
     }
-
     @media (max-width: 480px) {
-      .logo-container img {
-        max-height: 16vh;
-      }
       .header-title {
         font-size: 5vw;
       }
       .content {
         font-size: 0.9rem;
         padding: 10px;
-      }
-    }
-
-    /* Media queries for very wide or tall screens */
-    @media (min-aspect-ratio: 16/9) {
-      .header-title {
-        font-size: 2vw;
-      }
-    }
-    @media (max-aspect-ratio: 9/16) {
-      .header-title {
-        font-size: 6vw;
       }
     }
   </style>
