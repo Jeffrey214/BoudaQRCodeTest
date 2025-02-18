@@ -44,7 +44,7 @@ def main():
         for html_file in html_files:
             base_name = os.path.splitext(html_file)[0]
             # Construct the URL for the hosted file
-            hosted_url = f"https://jeffrey214.github.io/BoudaQRCodeTest/DeploymentHTMLFiles/{html_file}"
+            hosted_url = f"https://jeffrey214.github.io/BoudaQRCodeTest/DeploymentFiles/{html_file}"
 
             # Generate the QR code in the QRCodes/DeploymentQR folder
             generate_qr_code(hosted_url, base_name, "DeploymentQR")
