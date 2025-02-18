@@ -96,7 +96,9 @@ class ProcessorUI:
             re.IGNORECASE
         )
         line_pattern = re.compile(r'^\s*(cs|en|de|pl)\s*:\s*(".*?")\s*$', re.MULTILINE)
-        image_pattern = re.compile(r'<pathfromroot\\(.*?)>', re.IGNORECASE)
+
+        # UPDATED: Pattern for image placeholders like <PictureDeps/Content/Article1/testimage.png>
+        image_pattern = re.compile(r'<(PictureDeps/[^>]+)>', re.IGNORECASE)
 
         parsed_data = {}
         any_error = False
@@ -133,16 +135,19 @@ class ProcessorUI:
 
                 block_text = raw_data[block_start:this_block_end]
 
+                # Find all language lines (cs, en, de, pl)
                 for m in line_pattern.finditer(block_text):
                     lang = m.group(1).lower()
                     val = m.group(2).strip()
                     if section_name in data_dict and lang in data_dict[section_name]:
                         data_dict[section_name][lang] = val
 
+                # Find all image placeholders in this block
                 for img_match in image_pattern.finditer(block_text):
                     img_path = img_match.group(1).strip()
                     data_dict["images"].append(img_path)
 
+            # Check for missing lines
             missing = []
             for section_name in ["header", "title", "content"]:
                 for lang_code in ["cs", "en", "de", "pl"]:
@@ -189,10 +194,14 @@ class ProcessorUI:
             cs_header  = data_dict["header"]["cs"]
             cs_content = data_dict["content"]["cs"]
 
+            # Replace <title>
             mod_content = title_re.sub(lambda m: m.group(1) + cs_title + m.group(3), mod_content)
+            # Replace header div
             mod_content = header_re.sub(lambda m: m.group(1) + cs_header + m.group(3), mod_content)
+            # Replace content paragraph
             mod_content = content_re.sub(lambda m: m.group(1) + cs_content + m.group(3), mod_content)
 
+            # Prepare new JS objects
             def strip_q(s):
                 return s.strip('"')
 
@@ -222,12 +231,14 @@ class ProcessorUI:
                 f'}};'
             )
 
+            # Replace JS placeholders
             mod_content = js_titles_re.sub(new_titles_js, mod_content)
             mod_content = js_contents_re.sub(new_contents_js, mod_content)
 
+            # Replace all image placeholders found
             for img_path in data_dict["images"]:
                 img_tag = f'<img src="{img_path}" class="content-image" />'
-                mod_content = mod_content.replace(f'<pathfromroot\\{img_path}>', img_tag)
+                mod_content = mod_content.replace(f'<{img_path}>', img_tag)
 
             base_name = os.path.splitext(raw_filename)[0]
             output_filename = base_name + ".html"
@@ -255,6 +266,7 @@ class ProcessorUI:
             self.start_button.config(state=tk.NORMAL)
             return
 
+        # Write manifest
         try:
             with open(MANIFEST_FILE, "w", encoding="utf-8") as mf:
                 mf.write("#Manifest\n")
