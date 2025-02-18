@@ -227,7 +227,7 @@ class ProcessorUI:
 
             for img_path in data_dict["images"]:
                 img_tag = f'<img src="{img_path}" class="content-image" />'
-                mod_content = mod_content.replace("<body>", f"<body>{img_tag}")
+                mod_content = mod_content.replace(f'<pathfromroot\\{img_path}>', img_tag)
 
             base_name = os.path.splitext(raw_filename)[0]
             output_filename = base_name + ".html"
