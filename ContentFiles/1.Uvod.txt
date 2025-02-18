@@ -1,0 +1,17 @@
+Header:
+    cs: "1.H1C"
+    en: "1.H1E"
+    de: "1.H1D"
+    pl: "1.H1P"
+
+Title:
+    cs: "1.T1C"
+    en: "1.T1E"
+    de: "1.T1D"
+    pl: "1.T1P"
+
+Content:
+    cs: "1.C1C"
+    en: "1.C1E"
+    de: "1.C1D"
+    pl: "1.C1P"

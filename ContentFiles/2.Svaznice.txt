@@ -1,0 +1,17 @@
+Header:
+    cs: "2.H1C"
+    en: "2.H1E"
+    de: "2.H1D"
+    pl: "2.H1P"
+
+Title:
+    cs: "2.T1C"
+    en: "2.T1E"
+    de: "2.T1D"
+    pl: "2.T1P"
+
+Content:
+    cs: "2.C1C"
+    en: "2.C1E"
+    de: "2.C1D"
+    pl: "2.C1P"
