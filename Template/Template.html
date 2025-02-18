@@ -192,31 +192,41 @@
     // These JS constants will be replaced by Deploy.py with distinct language values.
     const titles = {"cs": "★★★ TEMPLATE HEADER CS ★★★", "en": "★★★ TEMPLATE HEADER EN ★★★", "de": "★★★ TEMPLATE HEADER DE ★★★", "pl": "★★★ TEMPLATE HEADER PL ★★★"};
     const contents = {"cs": "★★★ TEMPLATE CONTENT CS ★★★", "en": "★★★ TEMPLATE CONTENT EN ★★★", "de": "★★★ TEMPLATE CONTENT DE ★★★", "pl": "★★★ TEMPLATE CONTENT PL ★★★"};
-    
+
     function changeLanguage(lang) {
-      document.getElementById("header-title").innerText = titles[lang];
-      document.getElementById("content-text").innerText = contents[lang];
+      console.log("Changing language to", lang);
+      const headerTitle = document.getElementById("header-title");
+      const contentText = document.getElementById("content-text");
+      if(headerTitle && contentText) {
+         headerTitle.innerText = titles[lang];
+         contentText.innerText = contents[lang];
+      }
+      // Update active flag
       document.querySelectorAll(".flag-container img").forEach(img => img.classList.remove("active"));
-      document.querySelector(`.flag-container img[alt='${lang}']`).classList.add("active");
+      const flag = document.querySelector(`.flag-container img[alt='${lang}']`);
+      if (flag) {
+         flag.classList.add("active");
+      }
     }
-    
+    // Make the function globally available
+    window.changeLanguage = changeLanguage;
+
     async function updateNavigationArrows() {
-      const prevArrow = document.getElementById("prev-arrow");
-      const nextArrow = document.getElementById("next-arrow");
-
-      // CHANGED: Use a relative URL to the manifest
-      const manifestUrl = "./manifest.txt"; 
-
       try {
+        const prevArrow = document.getElementById("prev-arrow");
+        const nextArrow = document.getElementById("next-arrow");
+        // Use a relative URL so GitHub Pages can locate the manifest in the same folder
+        const manifestUrl = "./manifest.txt";
+        console.log("Fetching manifest from", manifestUrl);
         const response = await fetch(manifestUrl);
         if (!response.ok) throw new Error("Failed to fetch manifest.");
         const text = await response.text();
-        // Split lines, ignoring blank lines and the header line (#Manifest)
+        // Split lines, ignoring blank lines and any header line starting with "#"
         const lines = text.split("\n").filter(line => line.trim() && !line.trim().startsWith("#"));
-        // Each line is assumed to be in the format "N. filename"
+        // Each line should be in the format "N. filename"
         const pages = lines.map(line => line.substring(line.indexOf('.') + 1).trim());
-        
-        // If only one file exists, disable both arrows
+        console.log("Pages:", pages);
+
         if (pages.length <= 1) {
           prevArrow.href = "#";
           nextArrow.href = "#";
@@ -224,10 +234,10 @@
           nextArrow.classList.add("disabled");
           return;
         }
-        
-        // Get current page filename
+
         const currentPageFilename = window.location.pathname.split("/").pop().trim();
         const index = pages.findIndex(p => p.trim() === currentPageFilename);
+        console.log("Current page:", currentPageFilename, "Index:", index);
         if (index === -1) {
           prevArrow.href = "#";
           nextArrow.href = "#";
@@ -235,35 +245,48 @@
           nextArrow.classList.add("disabled");
           return;
         }
-        
-        // Set previous arrow (if first page, disable it)
+
         if (index === 0) {
           prevArrow.href = "#";
           prevArrow.classList.add("disabled");
         } else {
-          // CHANGED: Use a relative link to the .html file
           prevArrow.href = pages[index - 1];
           prevArrow.classList.remove("disabled");
         }
-        
-        // Set next arrow (if last page, disable it)
+
         if (index === pages.length - 1) {
           nextArrow.href = "#";
           nextArrow.classList.add("disabled");
         } else {
-          // CHANGED: Use a relative link to the .html file
           nextArrow.href = pages[index + 1];
           nextArrow.classList.remove("disabled");
         }
       } catch (error) {
         console.error("Error updating navigation arrows:", error);
+        // Fallback: disable arrows if manifest fails to load
+        const prevArrow = document.getElementById("prev-arrow");
+        const nextArrow = document.getElementById("next-arrow");
+        prevArrow.href = "#";
+        nextArrow.href = "#";
+        prevArrow.classList.add("disabled");
+        nextArrow.classList.add("disabled");
       }
     }
-    
-    window.onload = function() {
-      changeLanguage('cs');
-      updateNavigationArrows();
-    }
+    // Make the function globally available (if needed for debugging)
+    window.updateNavigationArrows = updateNavigationArrows;
+
+    window.addEventListener("load", function() {
+      try {
+        changeLanguage('cs');
+      } catch (e) {
+        console.error("Error in changeLanguage:", e);
+      }
+      try {
+        updateNavigationArrows();
+      } catch (e) {
+        console.error("Error in updateNavigationArrows:", e);
+      }
+    });
   </script>
 </body>
 </html>
