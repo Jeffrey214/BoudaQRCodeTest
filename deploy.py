@@ -91,20 +91,12 @@ class ProcessorUI:
         raw_files.sort(key=sort_key)
 
         # Regex to capture each language line in each section
-        # For example:
-        # Header:
-        #    cs: "Header in Czech"
-        #    en: "Header in English"
-        #    ...
-        # We'll parse them all for 'Header', 'Title', 'Content'.
-        # This approach uses separate regex for each language & section or a more general approach.
-
         section_pattern = re.compile(
             r'(Header|Title|Content)\s*:\s*(?:.*?\n){0,4}',  # up to 4 lines, non-greedy
             re.IGNORECASE
         )
-        # Then we capture lines like cs: "..."
         line_pattern = re.compile(r'^\s*(cs|en|de|pl)\s*:\s*(".*?")\s*$', re.MULTILINE)
+        image_pattern = re.compile(r'<pathfromroot\\(.*?)>', re.IGNORECASE)
 
         parsed_data = {}
         any_error = False
@@ -124,39 +116,33 @@ class ProcessorUI:
                 any_error = True
                 break
 
-            # We'll store each section's dictionary of languages
-            # e.g. data_dict["header"] = {"cs": "\"Header in Czech\"", "en": "\"Header in English\"", ...}
             data_dict = {
                 "header": {"cs": None, "en": None, "de": None, "pl": None},
                 "title":  {"cs": None, "en": None, "de": None, "pl": None},
                 "content":{"cs": None, "en": None, "de": None, "pl": None},
+                "images": []
             }
 
-            # Find each section block with a quick approach:
-            # We'll find "Header:", "Title:", "Content:" blocks,
-            # then parse the lines in them for each language.
             for section_match in section_pattern.finditer(raw_data):
-                section_name = section_match.group(1).lower()  # 'Header' -> 'header'
+                section_name = section_match.group(1).lower()
                 block_start = section_match.start()
                 block_end = section_match.end()
 
-                # We'll read from block_start to next block or end
-                # so let's find the next block or end of file
                 next_block = section_pattern.search(raw_data, block_end)
                 this_block_end = next_block.start() if next_block else len(raw_data)
 
                 block_text = raw_data[block_start:this_block_end]
 
-                # Now parse each language line within block_text
                 for m in line_pattern.finditer(block_text):
-                    lang = m.group(1).lower()  # 'cs', 'en', 'de', 'pl'
-                    val = m.group(2).strip()   # the quoted string, e.g. "Header in Czech"
-                    # If the section is recognized
+                    lang = m.group(1).lower()
+                    val = m.group(2).strip()
                     if section_name in data_dict and lang in data_dict[section_name]:
                         data_dict[section_name][lang] = val
 
-            # Now check if all fields are present
-            # If any is None, we abort
+                for img_match in image_pattern.finditer(block_text):
+                    img_path = img_match.group(1).strip()
+                    data_dict["images"].append(img_path)
+
             missing = []
             for section_name in ["header", "title", "content"]:
                 for lang_code in ["cs", "en", "de", "pl"]:
@@ -168,7 +154,6 @@ class ProcessorUI:
                 any_error = True
                 break
 
-            # Store data_dict for this file
             parsed_data[raw_filename] = data_dict
             self.progress_bar["value"] = idx
             self.master.update_idletasks()
@@ -180,15 +165,12 @@ class ProcessorUI:
             self.start_button.config(state=tk.NORMAL)
             return
 
-        # 2nd pass: generate HTML
         self.status_label.config(text="All files valid. Generating HTML...")
         self.master.update_idletasks()
 
-        # Regex to capture the visible HTML tags
         title_re   = re.compile(r'(<title>)(.*?)(</title>)', re.DOTALL | re.IGNORECASE)
         header_re  = re.compile(r'(<div\s+[^>]*id=["\']header-title["\'][^>]*>)(.*?)(</div>)', re.DOTALL)
         content_re = re.compile(r'(<p\s+[^>]*id=["\']content-text["\'][^>]*>)(.*?)(</p>)', re.DOTALL)
-        # Regex to capture the JS constants
         js_titles_re   = re.compile(r'const\s+titles\s*=\s*\{[^}]*\};', re.DOTALL)
         js_contents_re = re.compile(r'const\s+contents\s*=\s*\{[^}]*\};', re.DOTALL)
 
@@ -200,31 +182,20 @@ class ProcessorUI:
             self.master.update_idletasks()
 
             data_dict = parsed_data[raw_filename]
-            # data_dict["header"]["cs"] => e.g. "\"Header in Czech\""
-            # data_dict["title"]["cs"]  => e.g. "\"Title in Czech\""
-            # data_dict["content"]["cs"]=> e.g. "\"Content in Czech\""
 
             mod_content = template_content
 
-            # 1) Insert the "cs" versions into visible HTML
             cs_title   = data_dict["title"]["cs"]
             cs_header  = data_dict["header"]["cs"]
             cs_content = data_dict["content"]["cs"]
 
-            # Replace <title> with Title.cs
             mod_content = title_re.sub(lambda m: m.group(1) + cs_title + m.group(3), mod_content)
-            # Replace <div id="header-title"> with Header.cs
             mod_content = header_re.sub(lambda m: m.group(1) + cs_header + m.group(3), mod_content)
-            # Replace <p id="content-text"> with Content.cs
             mod_content = content_re.sub(lambda m: m.group(1) + cs_content + m.group(3), mod_content)
 
-            # 2) Insert the distinct language data for the JS constants
-            # We strip the outer quotes for the JS objects.
-            # e.g. "\"Header in Czech\"" => "Header in Czech"
             def strip_q(s):
                 return s.strip('"')
 
-            # Build the 'titles' object from the 'header' lines
             h_cs = strip_q(data_dict["header"]["cs"])
             h_en = strip_q(data_dict["header"]["en"])
             h_de = strip_q(data_dict["header"]["de"])
@@ -238,7 +209,6 @@ class ProcessorUI:
                 f'}};'
             )
 
-            # Build the 'contents' object from the 'content' lines
             c_cs = strip_q(data_dict["content"]["cs"])
             c_en = strip_q(data_dict["content"]["en"])
             c_de = strip_q(data_dict["content"]["de"])
@@ -252,11 +222,13 @@ class ProcessorUI:
                 f'}};'
             )
 
-            # Perform the substitution
             mod_content = js_titles_re.sub(new_titles_js, mod_content)
             mod_content = js_contents_re.sub(new_contents_js, mod_content)
 
-            # 3) Write output file
+            for img_path in data_dict["images"]:
+                img_tag = f'<img src="{img_path}" class="content-image" />'
+                mod_content = mod_content.replace("<body>", f"<body>{img_tag}")
+
             base_name = os.path.splitext(raw_filename)[0]
             output_filename = base_name + ".html"
             output_path = os.path.join(DEPLOY_FOLDER, output_filename)
@@ -269,7 +241,6 @@ class ProcessorUI:
                 any_error = True
                 break
 
-            # 4) Manifest line
             order_match = re.match(r"(\d+)\.", raw_filename)
             order_str = order_match.group(1) if order_match else str(idx)
             manifest_lines.append(f"{order_str}. {output_filename}")
@@ -284,7 +255,6 @@ class ProcessorUI:
             self.start_button.config(state=tk.NORMAL)
             return
 
-        # Write manifest
         try:
             with open(MANIFEST_FILE, "w", encoding="utf-8") as mf:
                 mf.write("#Manifest\n")
