@@ -82,7 +82,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px; /* 10px gap between arrows */
+      gap: 20px; /* Increased gap between arrows */
       margin: 5px auto 0;
     }
     .nav-arrows a {
@@ -96,8 +96,9 @@
       pointer-events: none;
     }
     .nav-arrows a img {
-      height: 40px;
+      height: 20px; /* Smaller arrow size */
       width: auto;
+      filter: brightness(0) invert(1);
     }
     .content {
       max-width: 90%;
