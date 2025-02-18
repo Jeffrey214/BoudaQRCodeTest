@@ -82,21 +82,19 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px; /* Arrows spaced 10px apart */
+      gap: 10px; /* 10px gap between arrows */
       margin: 5px auto 0;
     }
     .nav-arrows a {
       text-decoration: none;
       font-size: 2rem;
-      color: #fff;
       cursor: pointer;
-      transition: color 0.3s;
+      transition: opacity 0.3s;
     }
     .nav-arrows a.disabled {
-      color: #ccc;
+      opacity: 0.5;
       pointer-events: none;
     }
-    /* Ensure arrow images are sized consistently */
     .nav-arrows a img {
       height: 40px;
       width: auto;
@@ -157,10 +155,10 @@
       <div class="header-title" id="header-title">Template</div>
       <div class="nav-arrows" id="nav-arrows">
         <a id="prev-arrow" href="#">
-          <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Arrows/left_arrow.png" alt="Previous">
+          <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Arrows/left_arrow.svg" alt="Previous">
         </a>
         <a id="next-arrow" href="#">
-          <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Arrows/right_arrow.png" alt="Next">
+          <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Arrows/right_arrow.svg" alt="Next">
         </a>
       </div>
     </div>
