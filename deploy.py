@@ -10,7 +10,6 @@ DEPLOY_FOLDER = "DeploymentFiles"
 
 # Manifest file named "manifest.txt"
 MANIFEST_FILE = os.path.join(DEPLOY_FOLDER, "manifest.txt")
-
 # Template file path
 TEMPLATE_FILE = os.path.join(TEMPLATE_FOLDER, "template.html")
 
@@ -25,25 +24,18 @@ class ProcessorUI:
     def __init__(self, master):
         self.master = master
         master.title("Deployment Processor")
-
         self.progress_label = tk.Label(master, text="Progress:")
         self.progress_label.pack(pady=5)
-
         self.progress_bar = ttk.Progressbar(master, orient=tk.HORIZONTAL, length=400, mode="determinate")
         self.progress_bar.pack(pady=5)
-
         self.error_label = tk.Label(master, text="Errors:")
         self.error_label.pack(pady=5)
-
         self.error_text = scrolledtext.ScrolledText(master, width=60, height=10)
         self.error_text.pack(pady=5)
-
         self.start_button = tk.Button(master, text="Start Processing", command=self.process_files)
         self.start_button.pack(pady=10)
-
         self.status_label = tk.Label(master, text="")
         self.status_label.pack(pady=5)
-
         self.errors = []
 
     def log_error(self, message):
@@ -53,22 +45,20 @@ class ProcessorUI:
 
     def process_files(self):
         """
-        1) For each .txt file in ContentFiles, capture the three sections:
-           Header, Title, and Content. Each section is expected to contain four lines,
-           one for each language (cs, en, de, pl) in the format:
-           
-             cs: "Some text"
-             
-           and may include image placeholders of the form <PictureDeps/...>.
+        1) For each .txt file in ContentFiles, capture the sections:
+             Header, Title, and Content.
+           Each section must contain four language lines (cs, en, de, pl)
+           in the format:  cs: "Some text"
+           and may contain image placeholders of the form <PictureDeps/...>.
         2) If any section is missing a language line, abort processing.
         3) For each valid file:
-           - Replace the <title>, <div id="header-title">, and <p id="content-text">
-             in the template with the Czech (cs) version.
-           - Replace the JavaScript objects for titles and contents with all four languages.
-           - Replace any image placeholder (e.g. <PictureDeps/Content/Article1/testimage.png>)
-             with an <img> tag that prepends "../" (so the image is loaded from root) and
-             includes an onerror handler to remove it if it fails to load.
-        4) Write the output HTML files to DeploymentFiles and produce a manifest.txt.
+             - Replace the <title>, <div id="header-title">, and <p id="content-text">
+               in the template with the Czech (cs) version (with quotes stripped).
+             - Build new JavaScript objects for titles and contents (with values escaped)
+               to replace those in the template.
+             - Replace any image placeholder (e.g. <PictureDeps/SomeFolder/myimg.png>) with
+               an <img> tag whose src is "../" + that path and with an onerror handler.
+        4) Write the generated HTML files to DeploymentFiles and produce a manifest.txt.
         """
         self.start_button.config(state=tk.DISABLED)
         self.error_text.delete("1.0", tk.END)
@@ -76,12 +66,12 @@ class ProcessorUI:
         self.status_label.config(text="Starting processing...")
         self.master.update_idletasks()
 
-        # Ensure folders exist
+        # Ensure required folders exist.
         for folder in [TEMPLATE_FOLDER, CONTENT_FOLDER, DEPLOY_FOLDER]:
             if not os.path.exists(folder):
                 os.makedirs(folder)
 
-        # Load template
+        # Load the template.
         try:
             with open(TEMPLATE_FILE, "r", encoding="utf-8") as f:
                 template_content = f.read()
@@ -91,34 +81,34 @@ class ProcessorUI:
             self.start_button.config(state=tk.NORMAL)
             return
 
-        # List .txt files in ContentFiles
+        # List all .txt files in ContentFiles.
         raw_files = [f for f in os.listdir(CONTENT_FOLDER) if f.lower().endswith(".txt")]
         if not raw_files:
             self.log_error("No .txt files found in ContentFiles.")
             self.start_button.config(state=tk.NORMAL)
             return
 
-        # Sort files by numeric prefix (e.g., "1.Uvod.txt", "2.Svaznice.txt", etc.)
+        # Sort files by numeric prefix.
         def sort_key(filename):
             match = re.match(r"(\d+)\.", filename)
             return int(match.group(1)) if match else 9999
         raw_files.sort(key=sort_key)
         self.progress_bar["maximum"] = len(raw_files)
 
-        # Pattern to capture an entire section block:
+        # Pattern to capture an entire section block (Header, Title, Content).
         section_block_pattern = re.compile(
             r'^(Header|Title|Content):\s*(.*?)(?=^(?:Header|Title|Content):|\Z)', 
             re.MULTILINE | re.DOTALL
         )
-        # Pattern for a language line (e.g., cs: "Text")
+        # Pattern for a language line, e.g. cs: "Some text"
         lang_line_pattern = re.compile(r'^\s*(cs|en|de|pl)\s*:\s*(".*?")\s*$', re.MULTILINE)
-        # Pattern for image placeholders
+        # Pattern for image placeholders (any <PictureDeps/...>).
         image_pattern = re.compile(r'<(PictureDeps/[^>]+)>', re.IGNORECASE)
 
         parsed_data = {}
         any_error = False
 
-        # Process each .txt file
+        # Process each configuration file.
         for idx, raw_filename in enumerate(raw_files, start=1):
             self.status_label.config(text=f"Checking {raw_filename} ({idx} of {len(raw_files)})")
             self.master.update_idletasks()
@@ -136,23 +126,23 @@ class ProcessorUI:
                 "header": {"cs": None, "en": None, "de": None, "pl": None},
                 "title":  {"cs": None, "en": None, "de": None, "pl": None},
                 "content": {"cs": None, "en": None, "de": None, "pl": None},
-                "images": []  # Collect all image placeholders from all sections.
+                "images": []  # Will hold all image placeholders.
             }
 
-            # Find all section blocks.
+            # Find section blocks.
             sections = section_block_pattern.findall(raw_data)
             for sec_name, sec_content in sections:
-                sec_key = sec_name.lower()
-                # Extract language lines for this section.
+                sec_key = sec_name.lower()  # 'header', 'title', or 'content'
+                # Extract language lines.
                 matches = lang_line_pattern.findall(sec_content)
                 for lang, text in matches:
                     lang = lang.lower()
-                    data_dict[sec_key][lang] = text  # text includes quotes
-                # Check for image placeholders.
+                    data_dict[sec_key][lang] = text  # text includes surrounding quotes.
+                # Extract image placeholders.
                 for img_match in image_pattern.findall(sec_content):
                     data_dict["images"].append(img_match)
 
-            # Verify every section has all four languages.
+            # Verify each section has all four languages.
             missing = []
             for sec in ["header", "title", "content"]:
                 for lang in ["cs", "en", "de", "pl"]:
@@ -190,15 +180,13 @@ class ProcessorUI:
         for idx, raw_filename in enumerate(raw_files, start=1):
             self.status_label.config(text=f"Generating for {raw_filename} ({idx} of {len(raw_files)})")
             self.master.update_idletasks()
-
             data_dict = parsed_data[raw_filename]
             mod_content = template_content
 
-            # Use the Czech (cs) version for fixed positions.
+            # Use the Czech version (after stripping quotes) for fixed positions.
             cs_title = strip_quotes(data_dict["title"]["cs"])
             cs_header = strip_quotes(data_dict["header"]["cs"])
             cs_content = strip_quotes(data_dict["content"]["cs"])
-
             mod_content = title_re.sub(lambda m: m.group(1) + cs_title + m.group(3), mod_content)
             mod_content = header_re.sub(lambda m: m.group(1) + cs_header + m.group(3), mod_content)
             mod_content = content_re.sub(lambda m: m.group(1) + cs_content + m.group(3), mod_content)
@@ -208,27 +196,25 @@ class ProcessorUI:
             h_en = js_escape(strip_quotes(data_dict["header"]["en"]))
             h_de = js_escape(strip_quotes(data_dict["header"]["de"]))
             h_pl = js_escape(strip_quotes(data_dict["header"]["pl"]))
-            new_titles_js = (
-                f"const titles = {{'cs': '{h_cs}', 'en': '{h_en}', 'de': '{h_de}', 'pl': '{h_pl}'}};"
-            )
+            new_titles_js = f"const titles = {{'cs': '{h_cs}', 'en': '{h_en}', 'de': '{h_de}', 'pl': '{h_pl}'}};"
             c_cs = js_escape(strip_quotes(data_dict["content"]["cs"]))
             c_en = js_escape(strip_quotes(data_dict["content"]["en"]))
             c_de = js_escape(strip_quotes(data_dict["content"]["de"]))
             c_pl = js_escape(strip_quotes(data_dict["content"]["pl"]))
-            new_contents_js = (
-                f"const contents = {{'cs': '{c_cs}', 'en': '{c_en}', 'de': '{c_de}', 'pl': '{c_pl}'}};"
-            )
+            new_contents_js = f"const contents = {{'cs': '{c_cs}', 'en': '{c_en}', 'de': '{c_de}', 'pl': '{c_pl}'}};"
             mod_content = js_titles_re.sub(new_titles_js, mod_content)
             mod_content = js_contents_re.sub(new_contents_js, mod_content)
 
-            # Replace image placeholders.
+            # Replace any image placeholders.
+            # For any placeholder of the form <PictureDeps/...> (regardless of folder),
+            # prepend "../" and replace it with an <img> tag.
             for img_path in data_dict["images"]:
                 placeholder = f"<{img_path}>"
                 adjusted_path = f"../{img_path}"
                 img_tag = f'<img src="{adjusted_path}" class="content-image" onerror="this.remove()" />'
                 mod_content = mod_content.replace(placeholder, img_tag)
 
-            # Determine output file name.
+            # Determine the output file name.
             base_name = os.path.splitext(raw_filename)[0]
             output_filename = base_name + ".html"
             output_path = os.path.join(DEPLOY_FOLDER, output_filename)
@@ -240,7 +226,7 @@ class ProcessorUI:
                 any_error = True
                 break
 
-            # Extract numeric order from filename for manifest.
+            # Extract numeric order from filename for the manifest.
             order_match = re.match(r"(\d+)\.", raw_filename)
             order_str = order_match.group(1) if order_match else str(idx)
             manifest_lines.append(f"{order_str}. {output_filename}")
