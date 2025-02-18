@@ -82,7 +82,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 20px; /* Increased gap between arrows */
+      gap: 20px;
       margin: 5px auto 0;
     }
     .nav-arrows a {
@@ -96,7 +96,7 @@
       pointer-events: none;
     }
     .nav-arrows a img {
-      height: 20px; /* Smaller arrow size */
+      height: 20px;
       width: auto;
       filter: brightness(0) invert(1);
     }
@@ -139,18 +139,18 @@
       }
     }
     .content-image {
-        max-width: 100%;
-        height: auto;
-        display: block;
-        margin: 10px auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 10px auto;
     }
     .content-image.wide {
-        width: 100%;
+      width: 100%;
     }
     .content-image.tall {
-        float: left;
-        margin-right: 20px;
-        max-width: 50%;
+      float: left;
+      margin-right: 20px;
+      max-width: 50%;
     }
   </style>
 </head>
@@ -189,92 +189,127 @@
     </a>
   </footer>
   <script>
-    // These JS constants will be replaced by Deploy.py with distinct language values.
-    const titles = {"cs": "★★★ TEMPLATE HEADER CS ★★★", "en": "★★★ TEMPLATE HEADER EN ★★★", "de": "★★★ TEMPLATE HEADER DE ★★★", "pl": "★★★ TEMPLATE HEADER PL ★★★"};
-    const contents = {"cs": "★★★ TEMPLATE CONTENT CS ★★★", "en": "★★★ TEMPLATE CONTENT EN ★★★", "de": "★★★ TEMPLATE CONTENT DE ★★★", "pl": "★★★ TEMPLATE CONTENT PL ★★★"};
+    // These constants will be replaced by your deployment process
+    var titles = {
+      "cs": "★★★ TEMPLATE HEADER CS ★★★",
+      "en": "★★★ TEMPLATE HEADER EN ★★★",
+      "de": "★★★ TEMPLATE HEADER DE ★★★",
+      "pl": "★★★ TEMPLATE HEADER PL ★★★"
+    };
+    var contents = {
+      "cs": "★★★ TEMPLATE CONTENT CS ★★★",
+      "en": "★★★ TEMPLATE CONTENT EN ★★★",
+      "de": "★★★ TEMPLATE CONTENT DE ★★★",
+      "pl": "★★★ TEMPLATE CONTENT PL ★★★"
+    };
 
+    // Define changeLanguage and attach to window for global access
     function changeLanguage(lang) {
-      console.log("Changing language to", lang);
-      const headerTitle = document.getElementById("header-title");
-      const contentText = document.getElementById("content-text");
-      if(headerTitle && contentText) {
-         headerTitle.innerText = titles[lang];
-         contentText.innerText = contents[lang];
+      console.log("Changing language to " + lang);
+      var headerTitle = document.getElementById("header-title");
+      var contentText = document.getElementById("content-text");
+      if (headerTitle && contentText) {
+        headerTitle.innerText = titles[lang];
+        contentText.innerText = contents[lang];
       }
-      // Update active flag
-      document.querySelectorAll(".flag-container img").forEach(img => img.classList.remove("active"));
-      const flag = document.querySelector(`.flag-container img[alt='${lang}']`);
+      // Update active flag for images
+      var flags = document.querySelectorAll(".flag-container img");
+      for (var i = 0; i < flags.length; i++) {
+        flags[i].classList.remove("active");
+      }
+      var flag = document.querySelector(".flag-container img[alt='" + lang + "']");
       if (flag) {
-         flag.classList.add("active");
+        flag.classList.add("active");
       }
     }
-    // Make the function globally available
     window.changeLanguage = changeLanguage;
 
-    async function updateNavigationArrows() {
+    // Define updateNavigationArrows and attach to window
+    function updateNavigationArrows() {
       try {
-        const prevArrow = document.getElementById("prev-arrow");
-        const nextArrow = document.getElementById("next-arrow");
+        var prevArrow = document.getElementById("prev-arrow");
+        var nextArrow = document.getElementById("next-arrow");
         // Use a relative URL so GitHub Pages can locate the manifest in the same folder
-        const manifestUrl = "./manifest.txt";
-        console.log("Fetching manifest from", manifestUrl);
-        const response = await fetch(manifestUrl);
-        if (!response.ok) throw new Error("Failed to fetch manifest.");
-        const text = await response.text();
-        // Split lines, ignoring blank lines and any header line starting with "#"
-        const lines = text.split("\n").filter(line => line.trim() && !line.trim().startsWith("#"));
-        // Each line should be in the format "N. filename"
-        const pages = lines.map(line => line.substring(line.indexOf('.') + 1).trim());
-        console.log("Pages:", pages);
+        var manifestUrl = "./manifest.txt";
+        console.log("Fetching manifest from " + manifestUrl);
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", manifestUrl, true);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              var text = xhr.responseText;
+              var lines = text.split("\n").filter(function(line) {
+                return line.trim() !== "" && line.trim().charAt(0) !== "#";
+              });
+              var pages = lines.map(function(line) {
+                return line.substring(line.indexOf('.') + 1).trim();
+              });
+              console.log("Pages: ", pages);
 
-        if (pages.length <= 1) {
-          prevArrow.href = "#";
-          nextArrow.href = "#";
-          prevArrow.classList.add("disabled");
-          nextArrow.classList.add("disabled");
-          return;
-        }
+              if (pages.length <= 1) {
+                prevArrow.href = "#";
+                nextArrow.href = "#";
+                prevArrow.classList.add("disabled");
+                nextArrow.classList.add("disabled");
+                return;
+              }
 
-        const currentPageFilename = window.location.pathname.split("/").pop().trim();
-        const index = pages.findIndex(p => p.trim() === currentPageFilename);
-        console.log("Current page:", currentPageFilename, "Index:", index);
-        if (index === -1) {
-          prevArrow.href = "#";
-          nextArrow.href = "#";
-          prevArrow.classList.add("disabled");
-          nextArrow.classList.add("disabled");
-          return;
-        }
+              var pathParts = window.location.pathname.split("/");
+              var currentPageFilename = pathParts[pathParts.length - 1].trim();
+              var index = -1;
+              for (var i = 0; i < pages.length; i++) {
+                if (pages[i] === currentPageFilename) {
+                  index = i;
+                  break;
+                }
+              }
+              console.log("Current page: " + currentPageFilename + ", Index: " + index);
+              if (index === -1) {
+                prevArrow.href = "#";
+                nextArrow.href = "#";
+                prevArrow.classList.add("disabled");
+                nextArrow.classList.add("disabled");
+                return;
+              }
 
-        if (index === 0) {
-          prevArrow.href = "#";
-          prevArrow.classList.add("disabled");
-        } else {
-          prevArrow.href = pages[index - 1];
-          prevArrow.classList.remove("disabled");
-        }
+              if (index === 0) {
+                prevArrow.href = "#";
+                prevArrow.classList.add("disabled");
+              } else {
+                prevArrow.href = pages[index - 1];
+                prevArrow.classList.remove("disabled");
+              }
 
-        if (index === pages.length - 1) {
-          nextArrow.href = "#";
-          nextArrow.classList.add("disabled");
-        } else {
-          nextArrow.href = pages[index + 1];
-          nextArrow.classList.remove("disabled");
-        }
+              if (index === pages.length - 1) {
+                nextArrow.href = "#";
+                nextArrow.classList.add("disabled");
+              } else {
+                nextArrow.href = pages[index + 1];
+                nextArrow.classList.remove("disabled");
+              }
+            } else {
+              console.error("Failed to fetch manifest. Status: " + xhr.status);
+              prevArrow.href = "#";
+              nextArrow.href = "#";
+              prevArrow.classList.add("disabled");
+              nextArrow.classList.add("disabled");
+            }
+          }
+        };
+        xhr.send();
       } catch (error) {
-        console.error("Error updating navigation arrows:", error);
-        // Fallback: disable arrows if manifest fails to load
-        const prevArrow = document.getElementById("prev-arrow");
-        const nextArrow = document.getElementById("next-arrow");
+        console.error("Error in updateNavigationArrows: " + error);
+        var prevArrow = document.getElementById("prev-arrow");
+        var nextArrow = document.getElementById("next-arrow");
         prevArrow.href = "#";
         nextArrow.href = "#";
         prevArrow.classList.add("disabled");
         nextArrow.classList.add("disabled");
       }
     }
-    // Make the function globally available (if needed for debugging)
     window.updateNavigationArrows = updateNavigationArrows;
 
+    // Initialize functions when window loads
     window.addEventListener("load", function() {
       try {
         changeLanguage('cs');
