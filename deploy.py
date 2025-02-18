@@ -123,6 +123,7 @@ class ProcessorUI:
                 "images": []
             }
 
+            # Find each section block (Header, Title, Content)
             for section_match in section_pattern.finditer(raw_data):
                 section_name = section_match.group(1).lower()
                 block_start = section_match.start()
@@ -133,16 +134,19 @@ class ProcessorUI:
 
                 block_text = raw_data[block_start:this_block_end]
 
+                # For each language line (cs, en, de, pl)
                 for m in line_pattern.finditer(block_text):
                     lang = m.group(1).lower()
                     val = m.group(2).strip()
                     if section_name in data_dict and lang in data_dict[section_name]:
                         data_dict[section_name][lang] = val
 
+                # For each image placeholder
                 for img_match in image_pattern.finditer(block_text):
                     img_path = img_match.group(1).strip()
                     data_dict["images"].append(img_path)
 
+            # Check for missing lines
             missing = []
             for section_name in ["header", "title", "content"]:
                 for lang_code in ["cs", "en", "de", "pl"]:
@@ -168,6 +172,7 @@ class ProcessorUI:
         self.status_label.config(text="All files valid. Generating HTML...")
         self.master.update_idletasks()
 
+        # Regexes to update template placeholders
         title_re   = re.compile(r'(<title>)(.*?)(</title>)', re.DOTALL | re.IGNORECASE)
         header_re  = re.compile(r'(<div\s+[^>]*id=["\']header-title["\'][^>]*>)(.*?)(</div>)', re.DOTALL)
         content_re = re.compile(r'(<p\s+[^>]*id=["\']content-text["\'][^>]*>)(.*?)(</p>)', re.DOTALL)
@@ -189,10 +194,14 @@ class ProcessorUI:
             cs_header  = data_dict["header"]["cs"]
             cs_content = data_dict["content"]["cs"]
 
+            # Replace <title> with CS title
             mod_content = title_re.sub(lambda m: m.group(1) + cs_title + m.group(3), mod_content)
+            # Replace <div id="header-title"> with CS header
             mod_content = header_re.sub(lambda m: m.group(1) + cs_header + m.group(3), mod_content)
+            # Replace <p id="content-text"> with CS content
             mod_content = content_re.sub(lambda m: m.group(1) + cs_content + m.group(3), mod_content)
 
+            # Prepare new JS objects for all languages
             def strip_q(s):
                 return s.strip('"')
 
@@ -222,13 +231,17 @@ class ProcessorUI:
                 f'}};'
             )
 
+            # Replace the JS placeholder objects
             mod_content = js_titles_re.sub(new_titles_js, mod_content)
             mod_content = js_contents_re.sub(new_contents_js, mod_content)
 
+            # Inline-replace each <pathfromroot\...> with an <img> tag
             for img_path in data_dict["images"]:
+                placeholder = f"<pathfromroot\\{img_path}>"
                 img_tag = f'<img src="{img_path}" class="content-image" />'
-                mod_content = mod_content.replace("<body>", f"<body>{img_tag}")
+                mod_content = mod_content.replace(placeholder, img_tag)
 
+            # Write out the final HTML
             base_name = os.path.splitext(raw_filename)[0]
             output_filename = base_name + ".html"
             output_path = os.path.join(DEPLOY_FOLDER, output_filename)
@@ -255,6 +268,7 @@ class ProcessorUI:
             self.start_button.config(state=tk.NORMAL)
             return
 
+        # Finally, write the manifest
         try:
             with open(MANIFEST_FILE, "w", encoding="utf-8") as mf:
                 mf.write("#Manifest\n")
