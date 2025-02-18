@@ -238,7 +238,11 @@ class ProcessorUI:
             # Replace all image placeholders found
             for img_path in data_dict["images"]:
                 img_tag = f'<img src="{img_path}" class="content-image" />'
+<<<<<<< HEAD
                 mod_content = mod_content.replace(f'<{img_path}>', img_tag)
+=======
+                mod_content = mod_content.replace(f'<pathfromroot\\{img_path}>', img_tag)
+>>>>>>> a99e174 (PictureTest3)
 
             base_name = os.path.splitext(raw_filename)[0]
             output_filename = base_name + ".html"
