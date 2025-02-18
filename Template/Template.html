@@ -64,6 +64,12 @@
       height: auto;
       width: auto;
     }
+    /* Shrink logos on small screens */
+    @media (max-width: 480px) {
+      .logo-container img {
+        max-height: 80px;
+      }
+    }
     .header-title {
       color: white;
       font-size: 2vw;
@@ -76,7 +82,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 10px; /* Arrows spaced 10px apart */
       margin: 5px auto 0;
     }
     .nav-arrows a {
@@ -89,6 +95,11 @@
     .nav-arrows a.disabled {
       color: #ccc;
       pointer-events: none;
+    }
+    /* Ensure arrow images are sized consistently */
+    .nav-arrows a img {
+      height: 40px;
+      width: auto;
     }
     .content {
       max-width: 90%;
@@ -145,8 +156,12 @@
       </div>
       <div class="header-title" id="header-title">Template</div>
       <div class="nav-arrows" id="nav-arrows">
-        <a id="prev-arrow" href="#">🠬</a>
-        <a id="next-arrow" href="#">🠮</a>
+        <a id="prev-arrow" href="#">
+          <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Arrows/left_arrow.png" alt="Previous">
+        </a>
+        <a id="next-arrow" href="#">
+          <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Arrows/right_arrow.png" alt="Next">
+        </a>
       </div>
     </div>
   </div>
