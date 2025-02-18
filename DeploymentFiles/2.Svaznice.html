@@ -64,6 +64,12 @@
       height: auto;
       width: auto;
     }
+    /* Shrink logos on small screens */
+    @media (max-width: 480px) {
+      .logo-container img {
+        max-height: 80px;
+      }
+    }
     .header-title {
       color: white;
       font-size: 2vw;
@@ -76,19 +82,23 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 20px; /* Increased gap between arrows */
       margin: 5px auto 0;
     }
     .nav-arrows a {
       text-decoration: none;
       font-size: 2rem;
-      color: #fff;
       cursor: pointer;
-      transition: color 0.3s;
+      transition: opacity 0.3s;
     }
     .nav-arrows a.disabled {
-      color: #ccc;
+      opacity: 0.5;
       pointer-events: none;
+    }
+    .nav-arrows a img {
+      height: 20px; /* Smaller arrow size */
+      width: auto;
+      filter: brightness(0) invert(1);
     }
     .content {
       max-width: 90%;
@@ -145,8 +155,12 @@
       </div>
       <div class="header-title" id="header-title">"2.H1C"</div>
       <div class="nav-arrows" id="nav-arrows">
-        <a id="prev-arrow" href="#">🠬</a>
-        <a id="next-arrow" href="#">🠮</a>
+        <a id="prev-arrow" href="#">
+          <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Arrows/left_arrow.svg" alt="Previous">
+        </a>
+        <a id="next-arrow" href="#">
+          <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Arrows/right_arrow.svg" alt="Next">
+        </a>
       </div>
     </div>
   </div>
