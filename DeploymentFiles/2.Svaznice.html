@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>"2.T1C"</title>
+  <!-- The deploy script will replace the content between <title>2.T1C</title> -->
+  <title>2.T1C</title>
   <style>
     /* Base styles */
     body {
@@ -64,13 +65,13 @@
       height: auto;
       width: auto;
     }
-    /* Shrink logos on small screens */
     @media (max-width: 480px) {
       .logo-container img {
         max-height: 80px;
       }
     }
-    .header-title {
+    /* The deploy script replaces the content of this div */
+    #header-title {
       color: white;
       font-size: 2vw;
       font-weight: bold;
@@ -111,6 +112,10 @@
       font-size: 1rem;
       line-height: 1.6;
     }
+    /* The deploy script replaces the content of this paragraph */
+    #content-text {
+      margin: 0;
+    }
     footer {
       margin-top: 30px;
       font-size: 0.8rem;
@@ -121,7 +126,7 @@
       text-decoration: none;
     }
     @media (max-width: 768px) {
-      .header-title {
+      #header-title {
         font-size: 4vw;
       }
       .content {
@@ -130,7 +135,7 @@
       }
     }
     @media (max-width: 480px) {
-      .header-title {
+      #header-title {
         font-size: 5vw;
       }
       .content {
@@ -167,7 +172,8 @@
         <img src="../PictureDeps/Logos/BoudaLogo.PNG" alt="Bouda Logo">
         <img src="../PictureDeps/Logos/PardubiceLogo.PNG" alt="Pardubice Logo">
       </div>
-      <div class="header-title" id="header-title">"2.H1C"</div>
+      <!-- The deploy script replaces the innerText of this div -->
+      <div id="header-title">2.H1C</div>
       <div class="nav-arrows" id="nav-arrows">
         <a id="prev-arrow" href="#">
           <img src="../PictureDeps/Arrows/left_arrow.svg" alt="Previous">
@@ -179,7 +185,8 @@
     </div>
   </div>
   <div class="content">
-    <p id="content-text">"test <img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" onerror="this.remove()" />"</p>
+    <!-- The deploy script replaces the innerHTML of this paragraph -->
+    <p id="content-text">test <img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" onerror="this.remove()" /></p>
   </div>
   <footer>
     <p>© 2025 Společnost přátel československého opevnění, o.p.s.<br>
@@ -189,49 +196,31 @@
     </a>
   </footer>
   <script>
-    // These constants will be replaced by your deployment process
-    var titles = {
-      "cs": "★★★ TEMPLATE HEADER CS ★★★",
-      "en": "★★★ TEMPLATE HEADER EN ★★★",
-      "de": "★★★ TEMPLATE HEADER DE ★★★",
-      "pl": "★★★ TEMPLATE HEADER PL ★★★"
-    };
-    var contents = {
-      "cs": "★★★ TEMPLATE CONTENT CS ★★★",
-      "en": "★★★ TEMPLATE CONTENT EN ★★★",
-      "de": "★★★ TEMPLATE CONTENT DE ★★★",
-      "pl": "★★★ TEMPLATE CONTENT PL ★★★"
-    };
+    /* These JavaScript objects serve as placeholders.
+       The deploy script will replace these objects with ones that include
+       the language-specific content from your configuration files.
+    */
+    const titles = {'cs': '2.H1C', 'en': '2.H1E', 'de': '2.H1D', 'pl': '2.H1P'};
+    const contents = {'cs': 'test <img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" onerror="this.remove()" />', 'en': 'Základní prohlídka je ideálním typem prohlídky, návštěvník uvidí vše podstatné. Její časová náročnost je cca 90–100 minut. Do tvrze se vstoupí srubem K – S 22a, sestoupí se po svážnici (26 schodů dolů), prochází se kolem odvodňovací štoly, minových kobek, posuvných uzávěrů, filtrovny, strojovny/elektrárny až do hlavního muničního skladu M1. Zde je umístěna expozice zbraní, munice atd. Po prohlídce exponátů výprava pokračuje hlavní galerií kolem poválečných štol a dolních kabelových komor do překladiště u odbočky v prostoru válečných kasáren. Projde pět kasárenských sálů kde se nachází pietní místo a pokračuje hlavní galerií přes výhybnu až do manipulačního muničního skladu M2 pod srubem K – S 22. Zde se nachází další expozice (pancéřové prvky a výstroj objektů opevnění, ukázky vzduchotechnických rozvodů, překážkového materiálu atd.) Odtud výprava vstoupí na horní patro srubu K – S 22 – objektu pro otočnou a výsuvnou dělovou věž (99 schodů nahoru). Odtud se po prohlídce objektu, včetně modelu otočné a výsuvné věže, vrátí do podzemí (99 schodů dolů), nahlédne do vyrovnávací šachty a od ní se vrací zpět hlavní galerií bez odbočení. Po svážnici (26 schodů nahoru) vystoupí do srubu K – S 22a a zde ukončí prohlídku tvrze. Tento typ prohlídky představuje celkem 1 550 metrů podzemím, 125 schodů vzhůru a 125 dolů.', 'de': '2.C1D', 'pl': '2.C1P'};
 
-    // Define changeLanguage and attach to window for global access
     function changeLanguage(lang) {
-      console.log("Changing language to " + lang);
-      var headerTitle = document.getElementById("header-title");
-      var contentText = document.getElementById("content-text");
-      if (headerTitle && contentText) {
-        headerTitle.innerText = titles[lang];
-        contentText.innerText = contents[lang];
-      }
-      // Update active flag for images
-      var flags = document.querySelectorAll(".flag-container img");
-      for (var i = 0; i < flags.length; i++) {
-        flags[i].classList.remove("active");
-      }
-      var flag = document.querySelector(".flag-container img[alt='" + lang + "']");
-      if (flag) {
-        flag.classList.add("active");
-      }
+      // Use innerText for header (plain text) but innerHTML for content (which may include an image tag)
+      document.getElementById("header-title").innerText = titles[lang];
+      document.getElementById("content-text").innerHTML = contents[lang];
+      // Update active flag for language images
+      document.querySelectorAll(".flag-container img").forEach(function(img) {
+        img.classList.remove("active");
+      });
+      var activeImg = document.querySelector(".flag-container img[alt='" + lang + "']");
+      if (activeImg) { activeImg.classList.add("active"); }
     }
     window.changeLanguage = changeLanguage;
 
-    // Define updateNavigationArrows and attach to window
     function updateNavigationArrows() {
       try {
         var prevArrow = document.getElementById("prev-arrow");
         var nextArrow = document.getElementById("next-arrow");
-        // Use a relative URL so GitHub Pages can locate the manifest in the same folder
         var manifestUrl = "./manifest.txt";
-        console.log("Fetching manifest from " + manifestUrl);
         var xhr = new XMLHttpRequest();
         xhr.open("GET", manifestUrl, true);
         xhr.onreadystatechange = function() {
@@ -241,11 +230,10 @@
               var lines = text.split("\n").filter(function(line) {
                 return line.trim() !== "" && line.trim().charAt(0) !== "#";
               });
+              // Build pages array based on order in manifest
               var pages = lines.map(function(line) {
                 return line.substring(line.indexOf('.') + 1).trim();
               });
-              console.log("Pages: ", pages);
-
               if (pages.length <= 1) {
                 prevArrow.href = "#";
                 nextArrow.href = "#";
@@ -253,17 +241,10 @@
                 nextArrow.classList.add("disabled");
                 return;
               }
-
+              // Determine current page based on the file name
               var pathParts = window.location.pathname.split("/");
-              var currentPageFilename = pathParts[pathParts.length - 1].trim();
-              var index = -1;
-              for (var i = 0; i < pages.length; i++) {
-                if (pages[i] === currentPageFilename) {
-                  index = i;
-                  break;
-                }
-              }
-              console.log("Current page: " + currentPageFilename + ", Index: " + index);
+              var currentPage = pathParts[pathParts.length - 1].trim();
+              var index = pages.indexOf(currentPage);
               if (index === -1) {
                 prevArrow.href = "#";
                 nextArrow.href = "#";
@@ -271,7 +252,6 @@
                 nextArrow.classList.add("disabled");
                 return;
               }
-
               if (index === 0) {
                 prevArrow.href = "#";
                 prevArrow.classList.add("disabled");
@@ -279,7 +259,6 @@
                 prevArrow.href = pages[index - 1];
                 prevArrow.classList.remove("disabled");
               }
-
               if (index === pages.length - 1) {
                 nextArrow.href = "#";
                 nextArrow.classList.add("disabled");
@@ -288,7 +267,6 @@
                 nextArrow.classList.remove("disabled");
               }
             } else {
-              console.error("Failed to fetch manifest. Status: " + xhr.status);
               prevArrow.href = "#";
               nextArrow.href = "#";
               prevArrow.classList.add("disabled");
@@ -298,29 +276,14 @@
         };
         xhr.send();
       } catch (error) {
-        console.error("Error in updateNavigationArrows: " + error);
-        var prevArrow = document.getElementById("prev-arrow");
-        var nextArrow = document.getElementById("next-arrow");
-        prevArrow.href = "#";
-        nextArrow.href = "#";
-        prevArrow.classList.add("disabled");
-        nextArrow.classList.add("disabled");
+        console.error("Error in updateNavigationArrows:", error);
       }
     }
     window.updateNavigationArrows = updateNavigationArrows;
 
-    // Initialize functions when window loads
     window.addEventListener("load", function() {
-      try {
-        changeLanguage('cs');
-      } catch (e) {
-        console.error("Error in changeLanguage:", e);
-      }
-      try {
-        updateNavigationArrows();
-      } catch (e) {
-        console.error("Error in updateNavigationArrows:", e);
-      }
+      changeLanguage('cs');
+      updateNavigationArrows();
     });
   </script>
 </body>
