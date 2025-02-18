@@ -79,9 +79,10 @@
     }
     .nav-arrows {
       display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 10px;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 400px;
+      margin: 10px auto;
     }
     .nav-arrows a {
       text-decoration: none;
@@ -139,9 +140,9 @@
         <img src="https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Logos/PardubiceLogo.PNG" alt="Pardubice Logo">
       </div>
       <div class="header-title" id="header-title">"2.H1C"</div>
-      <div class="nav-arrows">
-        <a id="prev-arrow" href="#">&#8592;</a>
-        <a id="next-arrow" href="#">&#8594;</a>
+      <div class="nav-arrows" id="nav-arrows">
+        <a id="prev-arrow" href="#">🠮</a>
+        <a id="next-arrow" href="#">🠬</a>
       </div>
     </div>
   </div>
@@ -149,9 +150,10 @@
     <p id="content-text">"2.C1C"</p>
   </div>
   <script>
-    // The following JS constants will be replaced by Deploy.py.
+    // These JS constants will be replaced by Deploy.py with distinct values per language.
     const titles = {"cs": "2.H1C", "en": "2.H1E", "de": "2.H1D", "pl": "2.H1P"};
     const contents = {"cs": "2.C1C", "en": "2.C1E", "de": "2.C1D", "pl": "2.C1P"};
+    // Default language is Czech
     const currentPage = 1;
     const totalPages = 5;
     function changeLanguage(lang) {
@@ -160,22 +162,52 @@
       document.querySelectorAll(".flag-container img").forEach(img => img.classList.remove("active"));
       document.querySelector(`.flag-container img[alt='${lang}']`).classList.add("active");
     }
-    function updateNavigationArrows() {
+    async function updateNavigationArrows() {
       const prevArrow = document.getElementById("prev-arrow");
       const nextArrow = document.getElementById("next-arrow");
-      if (currentPage > 1) {
-        prevArrow.href = (currentPage - 1) + ".html";
-        prevArrow.classList.remove("disabled");
-      } else {
-        prevArrow.href = "#";
-        prevArrow.classList.add("disabled");
-      }
-      if (currentPage < totalPages) {
-        nextArrow.href = (currentPage + 1) + ".html";
-        nextArrow.classList.remove("disabled");
-      } else {
-        nextArrow.href = "#";
-        nextArrow.classList.add("disabled");
+      const navContainer = document.getElementById("nav-arrows");
+      const manifestUrl = "https://jeffrey214.github.io/BoudaQRCodeTest/DeploymentFiles/manifest.txt";
+      try {
+        const response = await fetch(manifestUrl);
+        if (!response.ok) throw new Error("Failed to fetch manifest.");
+        const text = await response.text();
+        // Split lines, ignoring blank lines and the first line (#Manifest)
+        const lines = text.split("\n").filter(line => line.trim() && !line.trim().startsWith("#"));
+        const pages = lines.map(line => line.substring(line.indexOf('.') + 1).trim());
+        
+        // If only one file exists, remove the nav arrows entirely
+        if (pages.length <= 1) {
+          navContainer.style.display = "none";
+          return;
+        }
+        
+        // Get the current filename from the URL (e.g., "1.Uvod.html")
+        const currentPageFilename = window.location.pathname.split("/").pop();
+        const index = pages.indexOf(currentPageFilename);
+        
+        // If not found, hide arrows
+        if (index === -1) {
+          navContainer.style.display = "none";
+          return;
+        }
+        
+        // Set up previous arrow: hide if first page
+        if (index === 0) {
+          prevArrow.style.display = "none";
+        } else {
+          prevArrow.style.display = "";
+          prevArrow.href = "https://jeffrey214.github.io/BoudaQRCodeTest/DeploymentFiles/" + pages[index - 1];
+        }
+        
+        // Set up next arrow: hide if last page
+        if (index === pages.length - 1) {
+          nextArrow.style.display = "none";
+        } else {
+          nextArrow.style.display = "";
+          nextArrow.href = "https://jeffrey214.github.io/BoudaQRCodeTest/DeploymentFiles/" + pages[index + 1];
+        }
+      } catch (error) {
+        console.error("Error updating navigation arrows:", error);
       }
     }
     window.onload = function() {
