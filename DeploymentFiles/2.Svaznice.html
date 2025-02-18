@@ -150,18 +150,17 @@
     <p id="content-text">"2.C1C"</p>
   </div>
   <script>
-    // These JS constants will be replaced by Deploy.py with distinct values per language.
+    // These JS constants will be replaced by Deploy.py with distinct language values.
     const titles = {"cs": "2.H1C", "en": "2.H1E", "de": "2.H1D", "pl": "2.H1P"};
     const contents = {"cs": "2.C1C", "en": "2.C1E", "de": "2.C1D", "pl": "2.C1P"};
-    // Default language is Czech
-    const currentPage = 1;
-    const totalPages = 5;
+    
     function changeLanguage(lang) {
       document.getElementById("header-title").innerText = titles[lang];
       document.getElementById("content-text").innerText = contents[lang];
       document.querySelectorAll(".flag-container img").forEach(img => img.classList.remove("active"));
       document.querySelector(`.flag-container img[alt='${lang}']`).classList.add("active");
     }
+    
     async function updateNavigationArrows() {
       const prevArrow = document.getElementById("prev-arrow");
       const nextArrow = document.getElementById("next-arrow");
@@ -173,25 +172,26 @@
         const text = await response.text();
         // Split lines, ignoring blank lines and the first line (#Manifest)
         const lines = text.split("\n").filter(line => line.trim() && !line.trim().startsWith("#"));
+        // Build array of filenames from lines. Each line is assumed to be in the format "N. filename"
         const pages = lines.map(line => line.substring(line.indexOf('.') + 1).trim());
         
-        // If only one file exists, remove the nav arrows entirely
+        // If only one file exists, hide the entire navigation container
         if (pages.length <= 1) {
           navContainer.style.display = "none";
           return;
         }
         
-        // Get the current filename from the URL (e.g., "1.Uvod.html")
-        const currentPageFilename = window.location.pathname.split("/").pop();
-        const index = pages.indexOf(currentPageFilename);
-        
-        // If not found, hide arrows
+        // Get the current page filename (e.g., "1.Uvod.html")
+        const currentPageFilename = window.location.pathname.split("/").pop().trim();
+        // Find index by trimming each element
+        const index = pages.findIndex(p => p.trim() === currentPageFilename);
         if (index === -1) {
+          // If the current file isn't in the manifest, hide navigation
           navContainer.style.display = "none";
           return;
         }
         
-        // Set up previous arrow: hide if first page
+        // Show or hide previous arrow
         if (index === 0) {
           prevArrow.style.display = "none";
         } else {
@@ -199,7 +199,7 @@
           prevArrow.href = "https://jeffrey214.github.io/BoudaQRCodeTest/DeploymentFiles/" + pages[index - 1];
         }
         
-        // Set up next arrow: hide if last page
+        // Show or hide next arrow
         if (index === pages.length - 1) {
           nextArrow.style.display = "none";
         } else {
@@ -210,6 +210,7 @@
         console.error("Error updating navigation arrows:", error);
       }
     }
+    
     window.onload = function() {
       changeLanguage('cs');
       updateNavigationArrows();

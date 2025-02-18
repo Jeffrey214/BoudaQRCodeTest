@@ -1,17 +1,17 @@
 Header:
-    cs: "Header in Czech"
-    en: "Header in English"
-    de: "Header in German"
-    pl: "Header in Polish"
+    cs: "1Header in Czech"
+    en: "1Header in English"
+    de: "1Header in German"
+    pl: "1Header in Polish"
 
 Title:
-    cs: "Title in Czech"
-    en: "Title in English"
-    de: "Title in German"
-    pl: "Title in Polish"
+    cs: "1Title in Czech"
+    en: "1Title in English"
+    de: "1Title in German"
+    pl: "1Title in Polish"
 
 Content:
-    cs: "Content in Czech"
-    en: "Content in English"
-    de: "Content in German"
-    pl: "Content in Polish"
+    cs: "1Content in Czech"
+    en: "1Content in English"
+    de: "1Content in German"
+    pl: "1Content in Polish"
