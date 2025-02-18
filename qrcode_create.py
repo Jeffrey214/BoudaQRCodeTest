@@ -1,38 +1,81 @@
 import qrcode
 import os
 
-# Ensure the QR Codes folder exists
-qr_folder = "QRCodes"
-os.makedirs(qr_folder, exist_ok=True)
+def generate_qr_code(url, output_name, subfolder):
+    """
+    Generate a QR code for the given URL and save it as output_name_QRCode.png
+    inside QRCodes/<subfolder> folder.
+    """
+    # Base folder for QR codes
+    base_qr_folder = "QRCodes"
+    # Subfolder for either "DeploymentQR" or "Targetted"
+    target_folder = os.path.join(base_qr_folder, subfolder)
 
-# Let the user choose which HTML folder to use
-print("Select the HTML folder:")
-print("1: TestHTMLFiles")
-print("2: DeploymentHTMLFiles")
-folder_choice = input("Enter 1 or 2: ").strip()
+    # Create the subfolder if it doesn't exist
+    os.makedirs(target_folder, exist_ok=True)
 
-if folder_choice == "1":
-    folder_name = "TestHTMLFiles"
-elif folder_choice == "2":
-    folder_name = "DeploymentHTMLFiles"
-else:
-    print("Invalid choice, defaulting to TestHTMLFiles.")
-    folder_name = "TestHTMLFiles"
+    # Generate the QR code
+    qr = qrcode.make(url)
 
-# Prompt user for the page name
-page_name = input("Enter the HTML page name (without .html): ").strip()
+    # Build the output file path
+    file_path = os.path.join(target_folder, f"{output_name}_QRCode.png")
 
-# Construct the full URL with the chosen folder structure
-hosted_url = f"https://jeffrey214.github.io/BoudaQRCodeTest/{folder_name}/{page_name}.html"
+    # Save the QR code
+    qr.save(file_path)
 
-# Generate the QR Code
-qr = qrcode.make(hosted_url)
+    print(f"✅ QR code saved as '{file_path}'. URL: {url}")
 
-# Define the file path
-file_path = os.path.join(qr_folder, f"{page_name}_QRCode.png")
+def main():
+    print("Select an option:")
+    print("1: Deploy (Generate QR codes for all HTML files in 'DeploymentFiles')")
+    print("2: TestFiles (Generate a single QR code for a file in 'TestHTMLFiles')")
 
-# Save and display the QR code
-qr.save(file_path)
-qr.show()
+    choice = input("Enter 1 or 2: ").strip()
 
-print(f"✅ QR code saved as '{file_path}'. Scan to open: {hosted_url}")
+    if choice == "1":
+        # 1) DEPLOY
+        folder_name = "DeploymentFiles"
+        html_files = [f for f in os.listdir(folder_name) if f.lower().endswith(".html")]
+        if not html_files:
+            print("No .html files found in the DeploymentFiles folder.")
+            return
+
+        print("Generating QR codes for all .html files in DeploymentFiles...")
+        for html_file in html_files:
+            base_name = os.path.splitext(html_file)[0]
+            # Construct the URL for the hosted file
+            hosted_url = f"https://jeffrey214.github.io/BoudaQRCodeTest/DeploymentHTMLFiles/{html_file}"
+
+            # Generate the QR code in the QRCodes/DeploymentQR folder
+            generate_qr_code(hosted_url, base_name, "DeploymentQR")
+
+        print("All deployment QR codes generated successfully.")
+
+    elif choice == "2":
+        # 2) TESTFILES
+        folder_name = "TestHTMLFiles"
+
+        # Prompt for page name (without extension)
+        page_name = input("Enter the HTML page name (without extension): ").strip()
+        if not page_name:
+            print("No page name provided. Exiting.")
+            return
+
+        # Prompt for extension (default to ".html" if blank)
+        extension = input("Enter file extension (default is .html): ").strip()
+        if not extension.startswith("."):
+            extension = f".{extension}" if extension else ".html"
+
+        # Construct the URL
+        hosted_url = f"https://jeffrey214.github.io/BoudaQRCodeTest/{folder_name}/{page_name}{extension}"
+
+        # Generate the QR code in the QRCodes/Targetted folder
+        generate_qr_code(hosted_url, page_name, "Targetted")
+
+        print("Test file QR code generated successfully.")
+
+    else:
+        print("Invalid choice. Exiting.")
+
+if __name__ == "__main__":
+    main()
