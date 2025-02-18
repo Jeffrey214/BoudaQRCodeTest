@@ -203,7 +203,10 @@
     async function updateNavigationArrows() {
       const prevArrow = document.getElementById("prev-arrow");
       const nextArrow = document.getElementById("next-arrow");
-      const manifestUrl = "https://jeffrey214.github.io/BoudaQRCodeTest/DeploymentFiles/manifest.txt";
+
+      // CHANGED: Use a relative URL to the manifest
+      const manifestUrl = "./manifest.txt"; 
+
       try {
         const response = await fetch(manifestUrl);
         if (!response.ok) throw new Error("Failed to fetch manifest.");
@@ -238,7 +241,8 @@
           prevArrow.href = "#";
           prevArrow.classList.add("disabled");
         } else {
-          prevArrow.href = "https://jeffrey214.github.io/BoudaQRCodeTest/DeploymentFiles/" + pages[index - 1];
+          // CHANGED: Use a relative link to the .html file
+          prevArrow.href = pages[index - 1];
           prevArrow.classList.remove("disabled");
         }
         
@@ -247,7 +251,8 @@
           nextArrow.href = "#";
           nextArrow.classList.add("disabled");
         } else {
-          nextArrow.href = "https://jeffrey214.github.io/BoudaQRCodeTest/DeploymentFiles/" + pages[index + 1];
+          // CHANGED: Use a relative link to the .html file
+          nextArrow.href = pages[index + 1];
           nextArrow.classList.remove("disabled");
         }
       } catch (error) {
