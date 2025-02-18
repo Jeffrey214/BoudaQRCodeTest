@@ -8,7 +8,7 @@ TEMPLATE_FOLDER = "template"
 CONTENT_FOLDER = "ContentFiles"
 DEPLOY_FOLDER = "DeploymentFiles"
 
-# Manifest file named "manifest.txt"
+# Manifest file path
 MANIFEST_FILE = os.path.join(DEPLOY_FOLDER, "manifest.txt")
 # Template file path
 TEMPLATE_FILE = os.path.join(TEMPLATE_FOLDER, "template.html")
@@ -45,20 +45,34 @@ class ProcessorUI:
 
     def process_files(self):
         """
-        1) For each .txt file in ContentFiles, capture the sections:
+        1) For each .txt file in ContentFiles, capture the three sections:
              Header, Title, and Content.
-           Each section must contain four language lines (cs, en, de, pl)
+           Each section is expected to contain four language lines (cs, en, de, pl)
            in the format:  cs: "Some text"
-           and may contain image placeholders of the form <PictureDeps/...>.
+           and may include image placeholders.
+           The extended image syntax is:
+             <PictureDeps/path/to/image.png|code>
+           where code is either a two-letter code (first letter = s/m/l for size,
+           second letter = c/r/l for alignment) or "w" meaning full width.
         2) If any section is missing a language line, abort processing.
         3) For each valid file:
-             - Replace the <title>, <div id="header-title">, and <p id="content-text">
-               in the template with the Czech (cs) version (with quotes stripped).
-             - Build new JavaScript objects for titles and contents (with values escaped)
-               to replace those in the template.
-             - Replace any image placeholder (e.g. <PictureDeps/SomeFolder/myimg.png>) with
-               an <img> tag whose src is "../" + that path and with an onerror handler.
-        4) Write the generated HTML files to DeploymentFiles and produce a manifest.txt.
+             - Replace the <title>, div#header-title, and p#content-text in the template
+               with the Czech (cs) version (with quotes stripped).
+             - Replace the JavaScript objects for titles and contents with values for all languages.
+             - Replace each image placeholder with an <img> tag:
+                 • src is "../" + image path.
+                 • style is set based on the code:
+                     - "w": width: 100%;
+                     - Otherwise, size letter sets width (s=25%, m=50%, l=75%)
+                       and alignment letter sets:
+                           'c': display: block; margin-left:auto; margin-right:auto;
+                           'l': float: left; margin-right:20px;
+                           'r': float: right; margin-left:20px;
+                 • An onerror handler removes the image if it fails to load.
+        4) Write the generated HTML files to DeploymentFiles and produce a manifest.txt
+           based on the numeric order of the source filenames.
+           If an output file already exists, it is overwritten and its name is recorded;
+           after processing, a warning message lists the number of overwritten files and their names.
         """
         self.start_button.config(state=tk.DISABLED)
         self.error_text.delete("1.0", tk.END)
@@ -95,20 +109,20 @@ class ProcessorUI:
         raw_files.sort(key=sort_key)
         self.progress_bar["maximum"] = len(raw_files)
 
-        # Pattern to capture an entire section block (Header, Title, Content).
+        # Regex to capture an entire section block.
         section_block_pattern = re.compile(
-            r'^(Header|Title|Content):\s*(.*?)(?=^(?:Header|Title|Content):|\Z)', 
+            r'^(Header|Title|Content):\s*(.*?)(?=^(?:Header|Title|Content):|\Z)',
             re.MULTILINE | re.DOTALL
         )
-        # Pattern for a language line, e.g. cs: "Some text"
+        # Regex for a language line.
         lang_line_pattern = re.compile(r'^\s*(cs|en|de|pl)\s*:\s*(".*?")\s*$', re.MULTILINE)
-        # Pattern for image placeholders (any <PictureDeps/...>).
-        image_pattern = re.compile(r'<(PictureDeps/[^>]+)>', re.IGNORECASE)
+        # Regex for image placeholders with optional code.
+        image_pattern = re.compile(r'<(PictureDeps/[^>|]+)(?:\|([sml][crl]|w))?>', re.IGNORECASE)
 
         parsed_data = {}
         any_error = False
 
-        # Process each configuration file.
+        # Process each .txt file.
         for idx, raw_filename in enumerate(raw_files, start=1):
             self.status_label.config(text=f"Checking {raw_filename} ({idx} of {len(raw_files)})")
             self.master.update_idletasks()
@@ -121,28 +135,26 @@ class ProcessorUI:
                 any_error = True
                 break
 
-            # Initialize a dictionary for the three sections.
             data_dict = {
                 "header": {"cs": None, "en": None, "de": None, "pl": None},
                 "title":  {"cs": None, "en": None, "de": None, "pl": None},
                 "content": {"cs": None, "en": None, "de": None, "pl": None},
-                "images": []  # Will hold all image placeholders.
+                "images": []  # Will hold tuples: (img_path, code) where code may be None.
             }
 
-            # Find section blocks.
+            # Find all section blocks.
             sections = section_block_pattern.findall(raw_data)
             for sec_name, sec_content in sections:
-                sec_key = sec_name.lower()  # 'header', 'title', or 'content'
+                sec_key = sec_name.lower()
                 # Extract language lines.
                 matches = lang_line_pattern.findall(sec_content)
                 for lang, text in matches:
                     lang = lang.lower()
-                    data_dict[sec_key][lang] = text  # text includes surrounding quotes.
+                    data_dict[sec_key][lang] = text  # text includes quotes.
                 # Extract image placeholders.
-                for img_match in image_pattern.findall(sec_content):
-                    data_dict["images"].append(img_match)
-
-            # Verify each section has all four languages.
+                for match in image_pattern.findall(sec_content):
+                    data_dict["images"].append(match)
+            # Verify that every section has all four languages.
             missing = []
             for sec in ["header", "title", "content"]:
                 for lang in ["cs", "en", "de", "pl"]:
@@ -167,14 +179,15 @@ class ProcessorUI:
         self.master.update_idletasks()
 
         # Patterns for replacing template placeholders.
-        title_re   = re.compile(r'(<title>)(.*?)(</title>)', re.DOTALL | re.IGNORECASE)
-        header_re  = re.compile(r'(<div\s+[^>]*id=["\']header-title["\'][^>]*>)(.*?)(</div>)', re.DOTALL)
+        title_re = re.compile(r'(<title>)(.*?)(</title>)', re.DOTALL | re.IGNORECASE)
+        header_re = re.compile(r'(<div\s+[^>]*id=["\']header-title["\'][^>]*>)(.*?)(</div>)', re.DOTALL)
         content_re = re.compile(r'(<p\s+[^>]*id=["\']content-text["\'][^>]*>)(.*?)(</p>)', re.DOTALL)
-        js_titles_re   = re.compile(r'const\s+titles\s*=\s*\{[^}]*\};', re.DOTALL)
+        js_titles_re = re.compile(r'const\s+titles\s*=\s*\{[^}]*\};', re.DOTALL)
         js_contents_re = re.compile(r'const\s+contents\s*=\s*\{[^}]*\};', re.DOTALL)
 
         manifest_lines = []
         self.progress_bar["value"] = 0
+        overwritten_files = []  # List to record overwritten deployment files.
 
         # Process each configuration file and generate HTML.
         for idx, raw_filename in enumerate(raw_files, start=1):
@@ -183,7 +196,7 @@ class ProcessorUI:
             data_dict = parsed_data[raw_filename]
             mod_content = template_content
 
-            # Use the Czech version (after stripping quotes) for fixed positions.
+            # Replace fixed positions using the Czech (cs) version (quotes stripped).
             cs_title = strip_quotes(data_dict["title"]["cs"])
             cs_header = strip_quotes(data_dict["header"]["cs"])
             cs_content = strip_quotes(data_dict["content"]["cs"])
@@ -205,19 +218,45 @@ class ProcessorUI:
             mod_content = js_titles_re.sub(new_titles_js, mod_content)
             mod_content = js_contents_re.sub(new_contents_js, mod_content)
 
-            # Replace any image placeholders.
-            # For any placeholder of the form <PictureDeps/...> (regardless of folder),
-            # prepend "../" and replace it with an <img> tag.
-            for img_path in data_dict["images"]:
-                placeholder = f"<{img_path}>"
+            # Replace image placeholders.
+            # Each image placeholder is of the form:
+            # <PictureDeps/your/path.png> OR <PictureDeps/your/path.png|code>
+            for img_tuple in data_dict["images"]:
+                img_path, img_code = img_tuple
+                if not img_code:
+                    img_code = "w"  # default to full width if not provided.
+                # Determine style based on code.
+                if img_code.lower() == "w":
+                    style = "width: 100%;"
+                else:
+                    size_letter = img_code[0].lower()
+                    align_letter = img_code[1].lower() if len(img_code) > 1 else "c"
+                    size_map = {'s': '25%', 'm': '50%', 'l': '75%'}
+                    width = size_map.get(size_letter, "100%")
+                    if align_letter == "c":
+                        style = f"width: {width}; display: block; margin-left: auto; margin-right: auto;"
+                    elif align_letter == "l":
+                        style = f"width: {width}; float: left; margin-right: 20px;"
+                    elif align_letter == "r":
+                        style = f"width: {width}; float: right; margin-left: 20px;"
+                    else:
+                        style = f"width: {width};"
+                # Reconstruct the exact placeholder.
+                if img_code.lower() == "w":
+                    placeholder = f"<{img_path}>"
+                else:
+                    placeholder = f"<{img_path}|{img_code}>"
                 adjusted_path = f"../{img_path}"
-                img_tag = f'<img src="{adjusted_path}" class="content-image" onerror="this.remove()" />'
+                img_tag = f'<img src="{adjusted_path}" class="content-image" style="{style}" onerror="this.remove()" />'
                 mod_content = mod_content.replace(placeholder, img_tag)
 
-            # Determine the output file name.
+            # Determine output file name.
             base_name = os.path.splitext(raw_filename)[0]
             output_filename = base_name + ".html"
             output_path = os.path.join(DEPLOY_FOLDER, output_filename)
+            # Check if the file exists; if so, record it.
+            if os.path.exists(output_path):
+                overwritten_files.append(output_filename)
             try:
                 with open(output_path, "w", encoding="utf-8") as outf:
                     outf.write(mod_content)
@@ -250,6 +289,12 @@ class ProcessorUI:
             messagebox.showwarning("Deployment Partial", "All HTML files were generated, but manifest.txt could not be written.")
             self.start_button.config(state=tk.NORMAL)
             return
+
+        # If any files were overwritten, log a warning.
+        if overwritten_files:
+            warning_message = f"Warning! {len(overwritten_files)} file(s) were overwritten:\n" + "\n".join(overwritten_files)
+            self.log_error(warning_message)
+            messagebox.showwarning("Files Overwritten", warning_message)
 
         self.status_label.config(text="Processing complete.")
         messagebox.showinfo("Done", "Processing complete. All files have been generated.")
