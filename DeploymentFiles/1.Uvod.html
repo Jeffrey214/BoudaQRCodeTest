@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- The deploy script will replace the content between <title>1Title in Czech</title> -->
   <title>1Title in Czech</title>
   <style>
-    /* Hide page until language is set */
-    body { visibility: hidden; }
+    /* Initially hide the page to prevent flicker */
+    body { display: none; }
     
     /* Base styles */
     body {
@@ -164,7 +163,7 @@
 </head>
 <body>
   <div class="flag-container">
-    <!-- No flag is active by default; the script will set the active one -->
+    <!-- No flag has the 'active' class by default -->
     <img src="../PictureDeps/Flags/cs.png" alt="cs" onclick="changeLanguage('cs')">
     <img src="../PictureDeps/Flags/en.png" alt="en" onclick="changeLanguage('en')">
     <img src="../PictureDeps/Flags/de.png" alt="de" onclick="changeLanguage('de')">
@@ -176,7 +175,7 @@
         <img src="../PictureDeps/Logos/BoudaLogo.PNG" alt="Bouda Logo">
         <img src="../PictureDeps/Logos/PardubiceLogo.PNG" alt="Pardubice Logo">
       </div>
-      <!-- The deploy script replaces the innerText of this div -->
+      <!-- The deploy script will replace this text -->
       <div id="header-title">1Header in Czech</div>
       <div class="nav-arrows" id="nav-arrows">
         <a id="prev-arrow" href="#">
@@ -189,7 +188,7 @@
     </div>
   </div>
   <div class="content">
-    <!-- The deploy script replaces the innerHTML of this paragraph -->
+    <!-- The deploy script will replace this text (using innerHTML) -->
     <p id="content-text"><img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 25%; float: left; margin-right: 20px;" onerror="this.remove()" /> Velký okruh je určen zájemcům o čs. opevnění nebo vojenskou historii. Uspokojí také ty z Vás, co chtějí vidět více, než je obvyklé. Časová náročnost této prohlídky činí 170–200 minut. Do tvrze se vstoupí stejně jako u ostatních typů prohlídek srubem K – S 22a. Následuje sestup se po svážnici (26 schodů dolů), prochází se kolem odvodňovací štoly, minových kobek, posuvných uzávěrů, filtrovny, strojovny/elektrárny až do hlavního muničního skladu M1. Zde je umístěna expozice zbraní, munice atd. Po prohlídce exponátů výprava pokračuje hlavní galerií kolem poválečných štol a dolních kabelových komor do překladiště u odbočky v prostoru válečných kasáren. Projde se pěti kasárenskými sály kde se nachází pietní místo a pokračuje hlavní galerií přes výhybnu až do manipulačního muničního skladu M2 pod srubem K – S 22. Zde se nachází další expozice (pancéřové prvky a výstroj objektů opevnění, ukázky vzduchotechnických rozvodů, překážkového materiálu). Pouze v rámci velkého a nadstandartního okruhu je přístupná expozice věnovaná německým přípravám na válečné tažení za využití našeho opevnění. Odtud výprava vstoupí na horní patro srubu K – S 22 – objektu pro otočnou a výsuvnou dělovou věž (99 schodů nahoru). Po výkladu a prohlídce horního patra srubu se vrátí do podzemí (99 schodů dolů). Následuje výklad u nouzového výlezu z tvrze a sestup vyrovnávací šachtou do snížené části podzemních prostor (74 schodů dolů). Zde se prohlídka vydá k patě schodiště srubu K – S 23, kde je instalována výtahová klec výtahu Vý-II. Dále výprava projde pěchotní galerií ke druhé odvodňovací štole a vystoupá na horní patro pěchotního srubu K – S 21 (129 schodů nahoru). Po prohlídce sejde do dolního patra srubu (16 schodů dolů) a nouzovým východem tvrz na krátký čas opustí. Následuje prohlídka exteriérů srubů K – S 21, K – S 23, K – S 22, pozůstatků po pracovní šachtě P II, pozůstatků po překážkovém systému na povrchu tvrze a exteriéru srubu K – S 24. Tímto objektem se výprava vrací do interiéru tvrze, prohlédne horní patro objektu a sestoupí do podzemí schodištní šachtou (167 schodů dolů). Pěchotní galerií projde do prostoru válečných kasáren a zde prohlídne jejich poslední část – ošetřovnu. Od ní se vrací zpět na hlavní galerii a bez odbočení jde ke srubu K – S 22a. Po svážnici (26 schodů nahoru) vystoupí do vjezdu ve srubu K – S 22a a zde ukončí prohlídku tvrze. Tento typ prohlídky představuje celkem 1 550 metrů podzemím, 1 000 metrů na povrchu tvrze, 254 schodů vzhůru a 382 dolů.</p>
   </div>
   <footer>
@@ -203,8 +202,7 @@
   </footer>
   <script>
     /* These JavaScript objects serve as placeholders.
-       The deploy script will replace these objects with ones that include
-       the language-specific content from your configuration files.
+       The deploy script will replace these objects with the actual language-specific content.
     */
     const titles = {'cs': '1Header in Czech', 'en': '1Header in English', 'de': '1Header in German', 'pl': '1Header in Polish'};
     const contents = {'cs': '<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 25%; float: left; margin-right: 20px;" onerror="this.remove()" /> Velký okruh je určen zájemcům o čs. opevnění nebo vojenskou historii. Uspokojí také ty z Vás, co chtějí vidět více, než je obvyklé. Časová náročnost této prohlídky činí 170–200 minut. Do tvrze se vstoupí stejně jako u ostatních typů prohlídek srubem K – S 22a. Následuje sestup se po svážnici (26 schodů dolů), prochází se kolem odvodňovací štoly, minových kobek, posuvných uzávěrů, filtrovny, strojovny/elektrárny až do hlavního muničního skladu M1. Zde je umístěna expozice zbraní, munice atd. Po prohlídce exponátů výprava pokračuje hlavní galerií kolem poválečných štol a dolních kabelových komor do překladiště u odbočky v prostoru válečných kasáren. Projde se pěti kasárenskými sály kde se nachází pietní místo a pokračuje hlavní galerií přes výhybnu až do manipulačního muničního skladu M2 pod srubem K – S 22. Zde se nachází další expozice (pancéřové prvky a výstroj objektů opevnění, ukázky vzduchotechnických rozvodů, překážkového materiálu). Pouze v rámci velkého a nadstandartního okruhu je přístupná expozice věnovaná německým přípravám na válečné tažení za využití našeho opevnění. Odtud výprava vstoupí na horní patro srubu K – S 22 – objektu pro otočnou a výsuvnou dělovou věž (99 schodů nahoru). Po výkladu a prohlídce horního patra srubu se vrátí do podzemí (99 schodů dolů). Následuje výklad u nouzového výlezu z tvrze a sestup vyrovnávací šachtou do snížené části podzemních prostor (74 schodů dolů). Zde se prohlídka vydá k patě schodiště srubu K – S 23, kde je instalována výtahová klec výtahu Vý-II. Dále výprava projde pěchotní galerií ke druhé odvodňovací štole a vystoupá na horní patro pěchotního srubu K – S 21 (129 schodů nahoru). Po prohlídce sejde do dolního patra srubu (16 schodů dolů) a nouzovým východem tvrz na krátký čas opustí. Následuje prohlídka exteriérů srubů K – S 21, K – S 23, K – S 22, pozůstatků po pracovní šachtě P II, pozůstatků po překážkovém systému na povrchu tvrze a exteriéru srubu K – S 24. Tímto objektem se výprava vrací do interiéru tvrze, prohlédne horní patro objektu a sestoupí do podzemí schodištní šachtou (167 schodů dolů). Pěchotní galerií projde do prostoru válečných kasáren a zde prohlídne jejich poslední část – ošetřovnu. Od ní se vrací zpět na hlavní galerii a bez odbočení jde ke srubu K – S 22a. Po svážnici (26 schodů nahoru) vystoupí do vjezdu ve srubu K – S 22a a zde ukončí prohlídku tvrze. Tento typ prohlídky představuje celkem 1 550 metrů podzemím, 1 000 metrů na povrchu tvrze, 254 schodů vzhůru a 382 dolů.', 'en': '1Content in English', 'de': 'o/', 'pl': '1Content in Polish'};
@@ -212,18 +210,18 @@
     function changeLanguage(lang) {
       // Update header using innerText.
       document.getElementById("header-title").innerText = titles[lang];
-      // Update content using innerHTML so that images render.
+      // Update content using innerHTML so that any embedded image tags render.
       document.getElementById("content-text").innerHTML = contents[lang];
-      // Remove active class from all flag images.
+      // Remove 'active' class from all flag images.
       document.querySelectorAll(".flag-container img").forEach(function(img) {
         img.classList.remove("active");
       });
-      // Set the active flag based on the chosen language.
+      // Set the active flag for the selected language.
       var activeImg = document.querySelector(".flag-container img[alt='" + lang + "']");
       if (activeImg) {
         activeImg.classList.add("active");
       }
-      // Save language preference in localStorage.
+      // Save the preferred language to localStorage.
       localStorage.setItem("preferredLanguage", lang);
     }
     window.changeLanguage = changeLanguage;
@@ -291,13 +289,13 @@
     }
     window.updateNavigationArrows = updateNavigationArrows;
 
-    // On window load, read the preferred language from localStorage (or default to 'cs'),
-    // apply it, update navigation arrows, then reveal the page.
+    // On window load, check localStorage for the preferred language and apply it,
+    // update navigation, then show the page.
     window.addEventListener("load", function() {
       var preferredLanguage = localStorage.getItem("preferredLanguage") || "cs";
       changeLanguage(preferredLanguage);
       updateNavigationArrows();
-      document.body.style.visibility = "visible";
+      document.body.style.display = "block";
     });
   </script>
 </body>
