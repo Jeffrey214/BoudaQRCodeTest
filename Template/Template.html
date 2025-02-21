@@ -70,7 +70,7 @@
         max-height: 80px;
       }
     }
-    /* The deploy script replaces the content of this div */
+    /* The deploy script replaces the innerText of this div */
     #header-title {
       color: white;
       font-size: 2vw;
@@ -112,7 +112,7 @@
       font-size: 1rem;
       line-height: 1.6;
     }
-    /* The deploy script replaces the content of this paragraph */
+    /* The deploy script replaces the innerHTML of this paragraph */
     #content-text {
       margin: 0;
     }
@@ -190,7 +190,9 @@
   </div>
   <footer>
     <p>© 2025 Společnost přátel československého opevnění, o.p.s.<br>
-    Jeffrey Rosypal Dotson | Released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
+       Jeffrey Rosypal Dotson | Released under the 
+       <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>
+    </p>
     <a href="https://opensource.org/licenses/MIT" target="_blank">
       <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License" style="height:20px;">
     </a>
@@ -204,15 +206,20 @@
     const contents = {"cs": "Template Content", "en": "Template Content", "de": "Template Content", "pl": "Template Content"};
 
     function changeLanguage(lang) {
-      // Use innerText for header (plain text) but innerHTML for content (which may include an image tag)
+      // Update header text using innerText.
       document.getElementById("header-title").innerText = titles[lang];
+      // Update content using innerHTML (so images are rendered)
       document.getElementById("content-text").innerHTML = contents[lang];
-      // Update active flag for language images
+      // Update active flag for language images.
       document.querySelectorAll(".flag-container img").forEach(function(img) {
         img.classList.remove("active");
       });
       var activeImg = document.querySelector(".flag-container img[alt='" + lang + "']");
-      if (activeImg) { activeImg.classList.add("active"); }
+      if (activeImg) {
+        activeImg.classList.add("active");
+      }
+      // Save language preference to localStorage.
+      localStorage.setItem("preferredLanguage", lang);
     }
     window.changeLanguage = changeLanguage;
 
@@ -230,7 +237,6 @@
               var lines = text.split("\n").filter(function(line) {
                 return line.trim() !== "" && line.trim().charAt(0) !== "#";
               });
-              // Build pages array based on order in manifest
               var pages = lines.map(function(line) {
                 return line.substring(line.indexOf('.') + 1).trim();
               });
@@ -241,7 +247,6 @@
                 nextArrow.classList.add("disabled");
                 return;
               }
-              // Determine current page based on the file name
               var pathParts = window.location.pathname.split("/");
               var currentPage = pathParts[pathParts.length - 1].trim();
               var index = pages.indexOf(currentPage);
@@ -281,8 +286,10 @@
     }
     window.updateNavigationArrows = updateNavigationArrows;
 
+    // On window load, check for a stored language preference.
     window.addEventListener("load", function() {
-      changeLanguage('cs');
+      var preferredLanguage = localStorage.getItem("preferredLanguage") || "cs";
+      changeLanguage(preferredLanguage);
       updateNavigationArrows();
     });
   </script>
