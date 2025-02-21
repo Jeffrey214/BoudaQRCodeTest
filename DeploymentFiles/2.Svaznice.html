@@ -6,6 +6,9 @@
   <!-- The deploy script will replace the content between <title>2.T1C</title> -->
   <title>2.T1C</title>
   <style>
+    /* Hide the page until language preference is set */
+    body { visibility: hidden; }
+    
     /* Base styles */
     body {
       background-color: #bebba1;
@@ -208,7 +211,7 @@
     function changeLanguage(lang) {
       // Update header text using innerText.
       document.getElementById("header-title").innerText = titles[lang];
-      // Update content using innerHTML (so images are rendered)
+      // Update content using innerHTML (so that any embedded image tag is rendered)
       document.getElementById("content-text").innerHTML = contents[lang];
       // Update active flag for language images.
       document.querySelectorAll(".flag-container img").forEach(function(img) {
@@ -218,7 +221,7 @@
       if (activeImg) {
         activeImg.classList.add("active");
       }
-      // Save language preference to localStorage.
+      // Save language preference so it persists across pages.
       localStorage.setItem("preferredLanguage", lang);
     }
     window.changeLanguage = changeLanguage;
@@ -291,6 +294,8 @@
       var preferredLanguage = localStorage.getItem("preferredLanguage") || "cs";
       changeLanguage(preferredLanguage);
       updateNavigationArrows();
+      // Unhide the page once language is set.
+      document.body.style.visibility = "visible";
     });
   </script>
 </body>
