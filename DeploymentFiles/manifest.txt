@@ -1,3 +1,4 @@
 #Manifest
 1. 1.Uvod.html
 2. 2.Svaznice.html
+3. 3.TestFile3.html

@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- The deploy script will replace the content between <title>2.T1C</title> -->
   <title>2.T1C</title>
   <style>
+    /* Initially hide the page to prevent flicker */
+    body { display: none; }
+    
     /* Base styles */
     body {
       background-color: #bebba1;
@@ -70,7 +72,7 @@
         max-height: 80px;
       }
     }
-    /* The deploy script replaces the content of this div */
+    /* The deploy script replaces the innerText of this div */
     #header-title {
       color: white;
       font-size: 2vw;
@@ -111,8 +113,14 @@
       text-align: justify;
       font-size: 1rem;
       line-height: 1.6;
+      overflow: auto;
     }
-    /* The deploy script replaces the content of this paragraph */
+    .content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    /* The deploy script replaces the innerHTML of this div */
     #content-text {
       margin: 0;
     }
@@ -145,7 +153,8 @@
     }
     .content-image {
       max-width: 100%;
-      height: auto;
+      height: auto !important;
+      object-fit: contain;
       display: block;
       margin: 10px auto;
     }
@@ -161,7 +170,8 @@
 </head>
 <body>
   <div class="flag-container">
-    <img src="../PictureDeps/Flags/cs.png" alt="cs" onclick="changeLanguage('cs')" class="active">
+    <!-- No flag has the 'active' class by default -->
+    <img src="../PictureDeps/Flags/cs.png" alt="cs" onclick="changeLanguage('cs')">
     <img src="../PictureDeps/Flags/en.png" alt="en" onclick="changeLanguage('en')">
     <img src="../PictureDeps/Flags/de.png" alt="de" onclick="changeLanguage('de')">
     <img src="../PictureDeps/Flags/pl.png" alt="pl" onclick="changeLanguage('pl')">
@@ -172,7 +182,7 @@
         <img src="../PictureDeps/Logos/BoudaLogo.PNG" alt="Bouda Logo">
         <img src="../PictureDeps/Logos/PardubiceLogo.PNG" alt="Pardubice Logo">
       </div>
-      <!-- The deploy script replaces the innerText of this div -->
+      <!-- The deploy script will replace this text -->
       <div id="header-title">2.H1C</div>
       <div class="nav-arrows" id="nav-arrows">
         <a id="prev-arrow" href="#">
@@ -185,34 +195,41 @@
     </div>
   </div>
   <div class="content">
-    <!-- The deploy script replaces the innerHTML of this paragraph -->
-    <p id="content-text">test <img src="../PictureDeps/Content/Article2/testimage2.jpg" class="content-image" onerror="this.remove()" /></p>
+    <!-- The deploy script replaces the innerHTML of this div -->
+    <div id="content-text">test <img src="../PictureDeps/Content/Article2/testimage2.jpg" class="content-image" style="width: 25%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></div>
   </div>
   <footer>
     <p>© 2025 Společnost přátel československého opevnění, o.p.s.<br>
-    Jeffrey Rosypal Dotson | Released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
+       Jeffrey Rosypal Dotson | Released under the 
+       <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>
+    </p>
     <a href="https://opensource.org/licenses/MIT" target="_blank">
       <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License" style="height:20px;">
     </a>
   </footer>
   <script>
     /* These JavaScript objects serve as placeholders.
-       The deploy script will replace these objects with ones that include
-       the language-specific content from your configuration files.
+       The deploy script will replace these objects with the actual language-specific content.
     */
-    const titles = {'cs': '2.H1C', 'en': '2.H1E', 'de': '2.H1D', 'pl': '2.H1P'};
-    const contents = {'cs': 'test <img src="../PictureDeps/Content/Article2/testimage2.jpg" class="content-image" onerror="this.remove()" />', 'en': 'Základní prohlídka je ideálním typem prohlídky, návštěvník uvidí vše podstatné. Její časová náročnost je cca 90–100 minut. Do tvrze se vstoupí srubem K – S 22a, sestoupí se po svážnici (26 schodů dolů), prochází se kolem odvodňovací štoly, minových kobek, posuvných uzávěrů, filtrovny, strojovny/elektrárny až do hlavního muničního skladu M1. Zde je umístěna expozice zbraní, munice atd. Po prohlídce exponátů výprava pokračuje hlavní galerií kolem poválečných štol a dolních kabelových komor do překladiště u odbočky v prostoru válečných kasáren. Projde pět kasárenských sálů kde se nachází pietní místo a pokračuje hlavní galerií přes výhybnu až do manipulačního muničního skladu M2 pod srubem K – S 22. Zde se nachází další expozice (pancéřové prvky a výstroj objektů opevnění, ukázky vzduchotechnických rozvodů, překážkového materiálu atd.) Odtud výprava vstoupí na horní patro srubu K – S 22 – objektu pro otočnou a výsuvnou dělovou věž (99 schodů nahoru). Odtud se po prohlídce objektu, včetně modelu otočné a výsuvné věže, vrátí do podzemí (99 schodů dolů), nahlédne do vyrovnávací šachty a od ní se vrací zpět hlavní galerií bez odbočení. Po svážnici (26 schodů nahoru) vystoupí do srubu K – S 22a a zde ukončí prohlídku tvrze. Tento typ prohlídky představuje celkem 1 550 metrů podzemím, 125 schodů vzhůru a 125 dolů.', 'de': '2.C1D', 'pl': '2.C1P'};
+    const titles = {'cs': `2.H1C`, 'en': `2.H1E`, 'de': `2.H1D`, 'pl': `2.H1P`};
+    const contents = {'cs': `test <img src="../PictureDeps/Content/Article2/testimage2.jpg" class="content-image" style="width: 25%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" />`, 'en': `Základní prohlídka je ideálním typem prohlídky, návštěvník uvidí vše podstatné. Její časová náročnost je cca 90–100 minut. Do tvrze se vstoupí srubem K – S 22a, sestoupí se po svážnici (26 schodů dolů), prochází se kolem odvodňovací štoly, minových kobek, posuvných uzávěrů, filtrovny, strojovny/elektrárny až do hlavního muničního skladu M1. Zde je umístěna expozice zbraní, munice atd. Po prohlídce exponátů výprava pokračuje hlavní galerií kolem poválečných štol a dolních kabelových komor do překladiště u odbočky v prostoru válečných kasáren. Projde pět kasárenských sálů kde se nachází pietní místo a pokračuje hlavní galerií přes výhybnu až do manipulačního muničního skladu M2 pod srubem K – S 22. Zde se nachází další expozice (pancéřové prvky a výstroj objektů opevnění, ukázky vzduchotechnických rozvodů, překážkového materiálu atd.) Odtud výprava vstoupí na horní patro srubu K – S 22 – objektu pro otočnou a výsuvnou dělovou věž (99 schodů nahoru). Odtud se po prohlídce objektu, včetně modelu otočné a výsuvné věže, vrátí do podzemí (99 schodů dolů), nahlédne do vyrovnávací šachty a od ní se vrací zpět hlavní galerií bez odbočení. Po svážnici (26 schodů nahoru) vystoupí do srubu K – S 22a a zde ukončí prohlídku tvrze. Tento typ prohlídky představuje celkem 1 550 metrů podzemím, 125 schodů vzhůru a 125 dolů.`, 'de': `2.C1D`, 'pl': `2.C1P`};
 
     function changeLanguage(lang) {
-      // Use innerText for header (plain text) but innerHTML for content (which may include an image tag)
+      // Update header using innerText.
       document.getElementById("header-title").innerText = titles[lang];
+      // Update content using innerHTML so that any embedded image tags render.
       document.getElementById("content-text").innerHTML = contents[lang];
-      // Update active flag for language images
+      // Remove 'active' class from all flag images.
       document.querySelectorAll(".flag-container img").forEach(function(img) {
         img.classList.remove("active");
       });
+      // Set the active flag for the selected language.
       var activeImg = document.querySelector(".flag-container img[alt='" + lang + "']");
-      if (activeImg) { activeImg.classList.add("active"); }
+      if (activeImg) {
+        activeImg.classList.add("active");
+      }
+      // Save the preferred language to localStorage.
+      localStorage.setItem("preferredLanguage", lang);
     }
     window.changeLanguage = changeLanguage;
 
@@ -230,7 +247,6 @@
               var lines = text.split("\n").filter(function(line) {
                 return line.trim() !== "" && line.trim().charAt(0) !== "#";
               });
-              // Build pages array based on order in manifest
               var pages = lines.map(function(line) {
                 return line.substring(line.indexOf('.') + 1).trim();
               });
@@ -241,7 +257,6 @@
                 nextArrow.classList.add("disabled");
                 return;
               }
-              // Determine current page based on the file name
               var pathParts = window.location.pathname.split("/");
               var currentPage = pathParts[pathParts.length - 1].trim();
               var index = pages.indexOf(currentPage);
@@ -281,9 +296,13 @@
     }
     window.updateNavigationArrows = updateNavigationArrows;
 
+    // On window load, check localStorage for the preferred language and apply it,
+    // update navigation, then show the page.
     window.addEventListener("load", function() {
-      changeLanguage('cs');
+      var preferredLanguage = localStorage.getItem("preferredLanguage") || "cs";
+      changeLanguage(preferredLanguage);
       updateNavigationArrows();
+      document.body.style.display = "block";
     });
   </script>
 </body>

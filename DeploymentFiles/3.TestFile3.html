@@ -196,30 +196,51 @@
   </div>
   <div class="content">
     <!-- The deploy script replaces the innerHTML of this div -->
-    <div id="content-text"><h1>Vítejte na prohlídce</h1>
-<h2>Úvod</h2>
-<p>Tento odstavec obsahuje <em>kurzívou</em> a <strong>tučný</strong> text, stejně jako <code>inline code</code>.</p>
+    <div id="content-text"><h1>Testovací Stránka</h1>
+<h2>Úvodní Test</h2>
+<p>Tento dokument obsahuje testovací prvky Markdown, včetně různých nadpisů, odstavců, seznamů, citací, kódových bloků a obrázků. Obrázky se zobrazují pouze v této sekci.</p>
+<h3>Formátování textu</h3>
 <ul>
-<li>První položka</li>
+<li><em>Kurzíva</em></li>
+<li><strong>Tučný text</strong></li>
+<li><code>Inline code</code></li>
+</ul>
+<h3>Seznamy</h3>
+<ul>
+<li>První položka nečíslovaného seznamu</li>
 <li>
-<p>Druhá položka</p>
+<p>Druhá položka nečíslovaného seznamu</p>
 </li>
 <li>
 <p>První položka číslovaného seznamu  </p>
 </li>
-<li>Druhá položka číslovaného seznamu  </li>
+<li>Druhá položka číslovaného seznamu</li>
 </ul>
+<h3>Citace</h3>
 <blockquote>
-<p>Toto je citace.</p>
+<p>Toto je příklad blokové citace.</p>
 </blockquote>
-<p>Obrázek s levým zarovnáním:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 25%; float: left; margin-right: 20px; height: auto;" onerror="this.remove()" /></p>
-<p>Obrázek se středovým zarovnáním:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 50%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
-<p>Obrázek s pravým zarovnáním:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 25%; float: right; margin-left: 20px; height: auto;" onerror="this.remove()" /></p>
-<p>Obrázek bez specifikovaného kódu (výchozí):<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 100%; height: auto;" onerror="this.remove()" /></p></div>
+<h3>Kódový blok</h3>
+<p>~~~python</p>
+<h1>Ukázkový kód v Pythonu</h1>
+<p>def pozdrav():
+    print("Ahoj, svět!")
+~~~</p>
+<hr />
+<h3>Obrázky a zarovnání</h3>
+<p>Logo s výchozí šířkou:<br />
+<img src="../PictureDeps/Logos/BoudaLogo.PNG" class="content-image" style="width: 100%; height: auto;" onerror="this.remove()" /></p>
+<p>Logo s malým rozměrem a zarovnané doleva:<br />
+<img src="../PictureDeps/Logos/PardubiceLogo.PNG" class="content-image" style="width: 25%; float: left; margin-right: 20px; height: auto;" onerror="this.remove()" /></p>
+<p>Logo se středovým rozměrem a centrované:<br />
+<img src="../PictureDeps/Logos/BoudaLogo.PNG" class="content-image" style="width: 50%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
+<p>Vlajka ČR (malá):<br />
+<PictureDeps/Flags/cs.png|s></p>
+<p>Vlajka Anglie (střední, centrovaná):<br />
+<img src="../PictureDeps/Flags/en.png" class="content-image" style="width: 50%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
+<p>Vlajka Německa (malá, zarovnaná vpravo):<br />
+<img src="../PictureDeps/Flags/de.png" class="content-image" style="width: 25%; float: right; margin-left: 20px; height: auto;" onerror="this.remove()" /></p>
+<hr /></div>
   </div>
   <footer>
     <p>© 2025 Společnost přátel československého opevnění, o.p.s.<br>
@@ -235,99 +256,182 @@
        The deploy script will replace these objects with the actual language-specific content.
     */
     const titles = {'cs': `1Header in Czech`, 'en': `1Header in English`, 'de': `1Header in German`, 'pl': `1Header in Polish`};
-    const contents = {'cs': `<h1>Vítejte na prohlídce</h1>
-<h2>Úvod</h2>
-<p>Tento odstavec obsahuje <em>kurzívou</em> a <strong>tučný</strong> text, stejně jako <code>inline code</code>.</p>
+    const contents = {'cs': `<h1>Testovací Stránka</h1>
+<h2>Úvodní Test</h2>
+<p>Tento dokument obsahuje testovací prvky Markdown, včetně různých nadpisů, odstavců, seznamů, citací, kódových bloků a obrázků. Obrázky se zobrazují pouze v této sekci.</p>
+<h3>Formátování textu</h3>
 <ul>
-<li>První položka</li>
+<li><em>Kurzíva</em></li>
+<li><strong>Tučný text</strong></li>
+<li><code>Inline code</code></li>
+</ul>
+<h3>Seznamy</h3>
+<ul>
+<li>První položka nečíslovaného seznamu</li>
 <li>
-<p>Druhá položka</p>
+<p>Druhá položka nečíslovaného seznamu</p>
 </li>
 <li>
 <p>První položka číslovaného seznamu  </p>
 </li>
-<li>Druhá položka číslovaného seznamu  </li>
+<li>Druhá položka číslovaného seznamu</li>
 </ul>
+<h3>Citace</h3>
 <blockquote>
-<p>Toto je citace.</p>
+<p>Toto je příklad blokové citace.</p>
 </blockquote>
-<p>Obrázek s levým zarovnáním:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 25%; float: left; margin-right: 20px; height: auto;" onerror="this.remove()" /></p>
-<p>Obrázek se středovým zarovnáním:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 50%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
-<p>Obrázek s pravým zarovnáním:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 25%; float: right; margin-left: 20px; height: auto;" onerror="this.remove()" /></p>
-<p>Obrázek bez specifikovaného kódu (výchozí):<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 100%; height: auto;" onerror="this.remove()" /></p>`, 'en': `<h1>Welcome to the Tour</h1>
-<h2>Introduction</h2>
-<p>This paragraph includes <em>italic</em> and <strong>bold</strong> text along with <code>inline code</code>.</p>
+<h3>Kódový blok</h3>
+<p>~~~python</p>
+<h1>Ukázkový kód v Pythonu</h1>
+<p>def pozdrav():
+    print("Ahoj, svět!")
+~~~</p>
+<hr />
+<h3>Obrázky a zarovnání</h3>
+<p>Logo s výchozí šířkou:<br />
+<img src="../PictureDeps/Logos/BoudaLogo.PNG" class="content-image" style="width: 100%; height: auto;" onerror="this.remove()" /></p>
+<p>Logo s malým rozměrem a zarovnané doleva:<br />
+<img src="../PictureDeps/Logos/PardubiceLogo.PNG" class="content-image" style="width: 25%; float: left; margin-right: 20px; height: auto;" onerror="this.remove()" /></p>
+<p>Logo se středovým rozměrem a centrované:<br />
+<img src="../PictureDeps/Logos/BoudaLogo.PNG" class="content-image" style="width: 50%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
+<p>Vlajka ČR (malá):<br />
+<PictureDeps/Flags/cs.png|s></p>
+<p>Vlajka Anglie (střední, centrovaná):<br />
+<img src="../PictureDeps/Flags/en.png" class="content-image" style="width: 50%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
+<p>Vlajka Německa (malá, zarovnaná vpravo):<br />
+<img src="../PictureDeps/Flags/de.png" class="content-image" style="width: 25%; float: right; margin-left: 20px; height: auto;" onerror="this.remove()" /></p>
+<hr />`, 'en': `<h1>Test Page</h1>
+<h2>Introduction Test</h2>
+<p>This document demonstrates various Markdown elements including headings, paragraphs, lists, blockquotes, inline code, code blocks, and images (which appear only in the content section).</p>
+<h3>Text Formatting</h3>
 <ul>
-<li>First unordered item  </li>
-<li>
-<p>Second unordered item  </p>
-</li>
-<li>
-<p>First ordered item  </p>
-</li>
-<li>Second ordered item  </li>
+<li><em>Italic text</em></li>
+<li><strong>Bold text</strong></li>
+<li><code>Inline code</code></li>
 </ul>
-<blockquote>
-<p>This is a blockquote.</p>
-</blockquote>
-<p>Image aligned left:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 25%; float: left; margin-right: 20px; height: auto;" onerror="this.remove()" /></p>
-<p>Image centered:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 50%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
-<p>Image aligned right:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 25%; float: right; margin-left: 20px; height: auto;" onerror="this.remove()" /></p>
-<p>Image with default width:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 100%; height: auto;" onerror="this.remove()" /></p>`, 'de': `<h1>Willkommen zur Führung</h1>
-<h2>Einführung</h2>
-<p>Dieser Absatz enthält <em>kursiven</em> und <strong>fetten</strong> Text sowie <code>inline code</code>.</p>
+<h3>Lists</h3>
 <ul>
-<li>Erste ungeordnete Liste  </li>
+<li>First unordered list item  </li>
 <li>
-<p>Zweite ungeordnete Liste  </p>
+<p>Second unordered list item</p>
 </li>
 <li>
-<p>Erster nummerierter Punkt  </p>
+<p>First ordered list item  </p>
 </li>
-<li>Zweiter nummerierter Punkt  </li>
+<li>Second ordered list item</li>
 </ul>
+<h3>Blockquote</h3>
 <blockquote>
-<p>Dies ist ein Zitat.</p>
+<p>This is an example blockquote.</p>
 </blockquote>
-<p>Bild linksbündig:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 25%; float: left; margin-right: 20px; height: auto;" onerror="this.remove()" /></p>
-<p>Bild zentriert:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 25%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
-<p>Bild rechtsbündig:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 25%; float: right; margin-left: 20px; height: auto;" onerror="this.remove()" /></p>
-<p>Bild ohne kód:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 100%; height: auto;" onerror="this.remove()" /></p>`, 'pl': `<h1>Witaj na wycieczce</h1>
-<h2>Wprowadzenie</h2>
-<p>Ten akapit zawiera <em>kursywę</em> oraz <strong>pogrubiony</strong> tekst, a także <code>inline code</code>.</p>
+<h3>Code Block</h3>
+<p>~~~python</p>
+<h1>Example Python code</h1>
+<p>def greet():
+    print("Hello, world!")
+~~~</p>
+<hr />
+<h3>Images and Alignment</h3>
+<p>Default logo:<br />
+<img src="../PictureDeps/Logos/BoudaLogo.PNG" class="content-image" style="width: 100%; height: auto;" onerror="this.remove()" /></p>
+<p>Small logo aligned left:<br />
+<img src="../PictureDeps/Logos/PardubiceLogo.PNG" class="content-image" style="width: 25%; float: left; margin-right: 20px; height: auto;" onerror="this.remove()" /></p>
+<p>Medium logo centered:<br />
+<img src="../PictureDeps/Logos/BoudaLogo.PNG" class="content-image" style="width: 50%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
+<p>Czech flag (small):<br />
+<PictureDeps/Flags/cs.png|s></p>
+<p>English flag (medium, centered):<br />
+<img src="../PictureDeps/Flags/en.png" class="content-image" style="width: 50%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
+<p>German flag (small, right-aligned):<br />
+<img src="../PictureDeps/Flags/de.png" class="content-image" style="width: 25%; float: right; margin-left: 20px; height: auto;" onerror="this.remove()" /></p>
+<hr />`, 'de': `<h1>Testseite</h1>
+<h2>Einführungstest</h2>
+<p>Dieses Dokument demonstriert verschiedene Markdown-Elemente wie Überschriften, Absätze, Listen, Zitate, Inline-Code, Codeblöcke und Bilder (die nur im Content-Bereich erscheinen).</p>
+<h3>Textformatierung</h3>
 <ul>
-<li>Pierwszy element listy  </li>
-<li>
-<p>Drugi element listy  </p>
-</li>
-<li>
-<p>Pierwszy element numerowany  </p>
-</li>
-<li>Drugi element numerowany  </li>
+<li><em>Kursiv</em></li>
+<li><strong>Fett</strong></li>
+<li><code>Inline-Code</code></li>
 </ul>
+<h3>Listen</h3>
+<ul>
+<li>Erstes Element einer ungeordneten Liste  </li>
+<li>
+<p>Zweites Element einer ungeordneten Liste</p>
+</li>
+<li>
+<p>Erstes Element einer geordneten Liste  </p>
+</li>
+<li>Zweites Element einer geordneten Liste</li>
+</ul>
+<h3>Zitat</h3>
 <blockquote>
-<p>To jest cytat.</p>
+<p>Dies ist ein Beispiel für ein Blockzitat.</p>
 </blockquote>
-<p>Obrazek wyrównany do lewej:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 25%; float: left; margin-right: 20px; height: auto;" onerror="this.remove()" /></p>
-<p>Obrazek wyśrodkowany:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 50%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
-<p>Obrazek wyrównany do prawej:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 25%; float: right; margin-left: 20px; height: auto;" onerror="this.remove()" /></p>
-<p>Obrazek bez kódu:<br />
-<img src="../PictureDeps/Content/Article1/testimage.png" class="content-image" style="width: 100%; height: auto;" onerror="this.remove()" /></p>`};
+<h3>Codeblock</h3>
+<p>~~~python</p>
+<h1>Beispielcode in Python</h1>
+<p>def begruessung():
+    print("Hallo Welt!")
+~~~</p>
+<hr />
+<h3>Bilder und Ausrichtung</h3>
+<p>Standardlogo:<br />
+<img src="../PictureDeps/Logos/BoudaLogo.PNG" class="content-image" style="width: 100%; height: auto;" onerror="this.remove()" /></p>
+<p>Kleines Logo, links ausgerichtet:<br />
+<img src="../PictureDeps/Logos/PardubiceLogo.PNG" class="content-image" style="width: 25%; float: left; margin-right: 20px; height: auto;" onerror="this.remove()" /></p>
+<p>Mittleres, zentriertes Logo:<br />
+<img src="../PictureDeps/Logos/BoudaLogo.PNG" class="content-image" style="width: 50%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
+<p>Tschechische Flagge (klein):<br />
+<PictureDeps/Flags/cs.png|s></p>
+<p>Englische Flagge (mittel, zentriert):<br />
+<img src="../PictureDeps/Flags/en.png" class="content-image" style="width: 50%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
+<p>Deutsche Flagge (klein, rechts):<br />
+<img src="../PictureDeps/Flags/de.png" class="content-image" style="width: 25%; float: right; margin-left: 20px; height: auto;" onerror="this.remove()" /></p>
+<hr />`, 'pl': `<h1>Strona Testowa</h1>
+<h2>Test Wprowadzenia</h2>
+<p>Ten dokument prezentuje różne elementy Markdown, takie jak nagłówki, akapity, listy, cytaty, kod w linii, bloki kodu oraz obrazy (które pojawiają się wyłącznie w sekcji treści).</p>
+<h3>Formatowanie tekstu</h3>
+<ul>
+<li><em>Kursywa</em></li>
+<li><strong>Pogrubiony tekst</strong></li>
+<li><code>Kod w linii</code></li>
+</ul>
+<h3>Listy</h3>
+<ul>
+<li>Pierwszy element listy nieuporządkowanej  </li>
+<li>
+<p>Drugi element listy nieuporządkowanej</p>
+</li>
+<li>
+<p>Pierwszy element listy uporządkowanej  </p>
+</li>
+<li>Drugi element listy uporządkowanej</li>
+</ul>
+<h3>Cytat</h3>
+<blockquote>
+<p>To jest przykładowy cytat blokowy.</p>
+</blockquote>
+<h3>Blok kodu</h3>
+<p>~~~python</p>
+<h1>Przykładowy kod w Pythonie</h1>
+<p>def przywitanie():
+    print("Cześć, świecie!")
+~~~</p>
+<hr />
+<h3>Obrazy i wyrównanie</h3>
+<p>Domyślne logo:<br />
+<img src="../PictureDeps/Logos/BoudaLogo.PNG" class="content-image" style="width: 100%; height: auto;" onerror="this.remove()" /></p>
+<p>Małe logo, wyrównane do lewej:<br />
+<img src="../PictureDeps/Logos/PardubiceLogo.PNG" class="content-image" style="width: 25%; float: left; margin-right: 20px; height: auto;" onerror="this.remove()" /></p>
+<p>Średnie logo, wyśrodkowane:<br />
+<img src="../PictureDeps/Logos/BoudaLogo.PNG" class="content-image" style="width: 50%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
+<p>Czeska flaga (mała):<br />
+<PictureDeps/Flags/cs.png|s></p>
+<p>Angielska flaga (średnia, wyśrodkowana):<br />
+<img src="../PictureDeps/Flags/en.png" class="content-image" style="width: 50%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></p>
+<p>Niemiecka flaga (mała, wyrównana do prawej):<br />
+<img src="../PictureDeps/Flags/de.png" class="content-image" style="width: 25%; float: right; margin-left: 20px; height: auto;" onerror="this.remove()" /></p>`};
 
     function changeLanguage(lang) {
       // Update header using innerText.
