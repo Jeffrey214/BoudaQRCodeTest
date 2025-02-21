@@ -10,6 +10,21 @@ try:
 except ImportError:
     RESAMPLE_FILTER = Image.LANCZOS
 
+# =========================
+# Configuration Section
+# =========================
+# GitHub configuration (for hosted URLs)
+GITHUB_USERNAME = "jeffrey214"
+REPO_NAME = "BoudaQRCodeTest"
+BASE_URL = f"https://{GITHUB_USERNAME}.github.io/{REPO_NAME}"
+# For QR code generation in deployment or test mode, hosted URLs will be built using BASE_URL.
+
+# Local logo configuration:
+# deploy.py is in the "Control Modules" folder, so we go one level up to the root.
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+LOGO_PATH = os.path.join(CURRENT_DIR, "..", "PictureDeps", "Logos", "BoudaLogo.PNG")
+# =========================
+
 def generate_qr_code(url, output_name, subfolder, debug=False):
     """
     Generate a QR code for the given URL and save it as output_name_QRCode.png
@@ -17,7 +32,7 @@ def generate_qr_code(url, output_name, subfolder, debug=False):
     A white square ("hole") (30% of the QR code's width) is created in the center.
     The logo is resized to fit within this square while preserving its aspect ratio,
     and then centered within the white square.
-    If debug is True, the downloaded logo is saved for verification.
+    If debug is True, the logo is saved for verification.
     """
     # Base folder for QR codes
     base_qr_folder = "QRCodes"
@@ -40,18 +55,18 @@ def generate_qr_code(url, output_name, subfolder, debug=False):
     draw = ImageDraw.Draw(qr_img)
     draw.rectangle([hole_pos, (hole_pos[0] + hole_size, hole_pos[1] + hole_size)], fill="white")
     
-    # Download the logo from GitHub
-    logo_url = "https://jeffrey214.github.io/BoudaQRCodeTest/PictureDeps/Logos/BoudaLogo.PNG"
+    # Load the logo from the local repository
     try:
-        response = requests.get(logo_url)
-        response.raise_for_status()
-        logo_data = response.content
+        if not os.path.exists(LOGO_PATH):
+            raise FileNotFoundError(f"Logo file not found at {LOGO_PATH}")
+        with open(LOGO_PATH, "rb") as f:
+            logo_data = f.read()
         
         if debug:
-            logo_filename = os.path.join(target_folder, f"{output_name}_LogoDebug.png")
-            with open(logo_filename, "wb") as f:
+            logo_debug_path = os.path.join(target_folder, f"{output_name}_LogoDebug.png")
+            with open(logo_debug_path, "wb") as f:
                 f.write(logo_data)
-            print(f"[DEBUG] Logo downloaded and saved as {logo_filename}")
+            print(f"[DEBUG] Logo loaded and saved as {logo_debug_path}")
         
         logo = Image.open(BytesIO(logo_data)).convert("RGBA")
         orig_w, orig_h = logo.size
@@ -77,7 +92,7 @@ def generate_qr_code(url, output_name, subfolder, debug=False):
         # Paste the logo using its alpha channel (if available)
         qr_img.paste(logo, paste_pos, mask=logo)
     except Exception as e:
-        print(f"Logo download or paste failed: {e}. Proceeding without logo.")
+        print(f"Logo load or paste failed: {e}. Proceeding without logo.")
 
     # Save final QR code image
     file_path = os.path.join(target_folder, f"{output_name}_QRCode.png")
@@ -87,7 +102,7 @@ def generate_qr_code(url, output_name, subfolder, debug=False):
 def main():
     print("Select an option:")
     print("1: Deploy (Generate QR codes for all HTML files in 'DeploymentFiles')")
-    print("1d: Deploy in debug mode (also saves the downloaded logo)")
+    print("1d: Deploy in debug mode (also saves the logo for verification)")
     print("2: TestFiles (Generate a single QR code for a file in 'TestHTMLFiles')")
     choice = input("Enter your choice: ").strip()
     debug_mode = (choice == "1d")
@@ -101,7 +116,7 @@ def main():
         print("Generating QR codes for all .html files in DeploymentFiles...")
         for html_file in html_files:
             base_name = os.path.splitext(html_file)[0]
-            hosted_url = f"https://jeffrey214.github.io/BoudaQRCodeTest/DeploymentFiles/{html_file}"
+            hosted_url = f"{BASE_URL}/DeploymentFiles/{html_file}"
             generate_qr_code(hosted_url, base_name, "DeploymentQR", debug=debug_mode)
         print("All deployment QR codes generated successfully.")
     
@@ -114,7 +129,7 @@ def main():
         extension = input("Enter file extension (default is .html): ").strip()
         if not extension.startswith("."):
             extension = f".{extension}" if extension else ".html"
-        hosted_url = f"https://jeffrey214.github.io/BoudaQRCodeTest/{folder_name}/{page_name}{extension}"
+        hosted_url = f"{BASE_URL}/{folder_name}/{page_name}{extension}"
         generate_qr_code(hosted_url, page_name, "Targetted", debug=False)
         print("Test file QR code generated successfully.")
     

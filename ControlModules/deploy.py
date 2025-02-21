@@ -11,9 +11,13 @@ from watchdog.events import FileSystemEventHandler
 # Import our content parser module.
 from content_parser import parse_content_file
 
-# Set up logging to a file.
+# Ensure the Logs folder exists.
+if not os.path.exists("Logs"):
+    os.makedirs("Logs")
+
+# Set up logging to a file in the Logs folder.
 logging.basicConfig(
-    filename="deploy.log",
+    filename=os.path.join("Logs", "deploy.log"),
     level=logging.DEBUG,
     format="%(asctime)s [%(levelname)s] %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S"
