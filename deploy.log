@@ -1,0 +1,423 @@
+2025-02-21 11:41:15 [INFO] Processing started.
+2025-02-21 11:41:15 [INFO] Template loaded successfully.
+2025-02-21 11:41:15 [INFO] Found 2 configuration files.
+2025-02-21 11:41:15 [INFO] Processing file: 1.Uvod.txt
+2025-02-21 11:41:15 [DEBUG] Loaded file: 1.Uvod.txt
+2025-02-21 11:41:15 [INFO] Processing file: 2.Svaznice.txt
+2025-02-21 11:41:15 [DEBUG] Loaded file: 2.Svaznice.txt
+2025-02-21 11:41:15 [INFO] Generating HTML for: 1.Uvod.txt
+2025-02-21 11:41:15 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 11:41:15 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 11:41:15 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 11:41:15 [INFO] Manifest file written successfully.
+2025-02-21 11:41:15 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 11:41:16 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 11:41:18 [INFO] Processing complete.
+2025-02-21 12:19:35 [INFO] Deployment Processor initialized.
+2025-02-21 12:19:38 [INFO] Processing started.
+2025-02-21 12:19:38 [INFO] Template loaded successfully.
+2025-02-21 12:19:38 [INFO] Selected 2 files for processing.
+2025-02-21 12:19:38 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 12:19:38 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 12:19:38 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 12:19:38 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 12:19:38 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 12:19:38 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 12:19:38 [INFO] Manifest file written successfully.
+2025-02-21 12:19:38 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 12:19:42 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 12:19:43 [INFO] Processing complete.
+2025-02-21 12:21:22 [INFO] Deployment Processor initialized.
+2025-02-21 12:21:23 [INFO] Processing started.
+2025-02-21 12:21:23 [INFO] Template loaded successfully.
+2025-02-21 12:21:23 [INFO] Selected 2 files for processing.
+2025-02-21 12:21:23 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 12:21:23 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 12:21:23 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 12:21:23 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 12:21:23 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 12:21:23 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 12:21:23 [INFO] Manifest file written successfully.
+2025-02-21 12:21:23 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 12:21:25 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 12:21:26 [INFO] Processing complete.
+2025-02-21 12:24:27 [INFO] Deployment Processor initialized.
+2025-02-21 12:24:28 [INFO] Processing started.
+2025-02-21 12:24:28 [INFO] Template loaded successfully.
+2025-02-21 12:24:28 [INFO] Selected 2 files for processing.
+2025-02-21 12:24:28 [ERROR] Error parsing 1.Uvod.md: global flags not at the start of the expression at position 27
+2025-02-21 12:24:33 [ERROR] Processing aborted due to parsing errors.
+2025-02-21 12:27:07 [INFO] Deployment Processor initialized.
+2025-02-21 12:27:08 [INFO] Processing started.
+2025-02-21 12:27:08 [INFO] Template loaded successfully.
+2025-02-21 12:27:08 [INFO] Selected 2 files for processing.
+2025-02-21 12:27:08 [ERROR] Error parsing 1.Uvod.md: global flags not at the start of the expression at position 27
+2025-02-21 12:27:10 [ERROR] Processing aborted due to parsing errors.
+2025-02-21 12:27:14 [INFO] Deployment Processor initialized.
+2025-02-21 12:27:15 [INFO] Processing started.
+2025-02-21 12:27:15 [INFO] Template loaded successfully.
+2025-02-21 12:27:15 [INFO] Selected 2 files for processing.
+2025-02-21 12:27:15 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 12:27:15 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 12:27:15 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 12:27:15 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 12:27:15 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 12:27:15 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 12:27:15 [INFO] Manifest file written successfully.
+2025-02-21 12:27:15 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 12:27:17 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 12:27:18 [INFO] Processing complete.
+2025-02-21 12:30:30 [INFO] Deployment Processor initialized.
+2025-02-21 12:30:31 [INFO] Processing started.
+2025-02-21 12:30:31 [INFO] Template loaded successfully.
+2025-02-21 12:30:31 [INFO] Selected 2 files for processing.
+2025-02-21 12:30:31 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 12:30:31 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 12:30:31 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 12:30:31 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 12:30:31 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 12:30:31 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 12:30:31 [INFO] Manifest file written successfully.
+2025-02-21 12:30:31 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 12:30:32 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 12:30:33 [INFO] Processing complete.
+2025-02-21 12:30:48 [INFO] Deployment Processor initialized.
+2025-02-21 12:30:49 [INFO] Processing started.
+2025-02-21 12:30:49 [INFO] Template loaded successfully.
+2025-02-21 12:30:49 [INFO] Selected 2 files for processing.
+2025-02-21 12:30:49 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 12:30:49 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 12:30:49 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 12:30:49 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 12:30:49 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 12:30:49 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 12:30:49 [INFO] Manifest file written successfully.
+2025-02-21 12:30:49 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 12:30:51 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 12:30:53 [INFO] Processing complete.
+2025-02-21 12:31:11 [INFO] Deployment Processor initialized.
+2025-02-21 12:31:12 [INFO] Processing started.
+2025-02-21 12:31:12 [INFO] Template loaded successfully.
+2025-02-21 12:31:12 [INFO] Selected 2 files for processing.
+2025-02-21 12:31:12 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 12:31:12 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 12:31:12 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 12:31:12 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 12:31:12 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 12:31:12 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 12:31:12 [INFO] Manifest file written successfully.
+2025-02-21 12:31:12 [ERROR] Warning! 1 file(s) were overwritten:
+2.Svaznice.html
+2025-02-21 12:31:14 [WARNING] Warning! 1 file(s) were overwritten:
+2.Svaznice.html
+2025-02-21 12:31:15 [INFO] Processing complete.
+2025-02-21 12:38:08 [INFO] Deployment Processor initialized.
+2025-02-21 12:38:09 [INFO] Processing started.
+2025-02-21 12:38:09 [INFO] Template loaded successfully.
+2025-02-21 12:38:09 [INFO] Selected 2 files for processing.
+2025-02-21 12:38:09 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 12:38:09 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 12:38:09 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 12:38:09 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 12:38:09 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 12:38:09 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 12:38:09 [INFO] Manifest file written successfully.
+2025-02-21 12:38:09 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 12:38:10 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 12:38:11 [INFO] Processing complete.
+2025-02-21 12:43:47 [INFO] Deployment Processor initialized.
+2025-02-21 12:43:48 [INFO] Processing started.
+2025-02-21 12:43:48 [INFO] Template loaded successfully.
+2025-02-21 12:43:48 [INFO] Selected 2 files for processing.
+2025-02-21 12:43:48 [ERROR] Error parsing 1.Uvod.md: no such group
+2025-02-21 12:43:50 [ERROR] Processing aborted due to parsing errors.
+2025-02-21 12:44:49 [INFO] Deployment Processor initialized.
+2025-02-21 12:44:50 [INFO] Processing started.
+2025-02-21 12:44:50 [INFO] Template loaded successfully.
+2025-02-21 12:44:50 [INFO] Selected 2 files for processing.
+2025-02-21 12:44:50 [ERROR] Error parsing 1.Uvod.md: no such group
+2025-02-21 12:44:51 [ERROR] Processing aborted due to parsing errors.
+2025-02-21 12:48:01 [INFO] Deployment Processor initialized.
+2025-02-21 12:48:02 [INFO] Processing started.
+2025-02-21 12:48:02 [INFO] Template loaded successfully.
+2025-02-21 12:48:02 [INFO] Selected 2 files for processing.
+2025-02-21 12:48:02 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 12:48:02 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 12:48:02 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 12:48:02 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 12:48:02 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 12:48:02 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 12:48:02 [INFO] Manifest file written successfully.
+2025-02-21 12:48:02 [ERROR] Warning! 1 file(s) were overwritten:
+2.Svaznice.html
+2025-02-21 12:48:04 [WARNING] Warning! 1 file(s) were overwritten:
+2.Svaznice.html
+2025-02-21 12:48:05 [INFO] Processing complete.
+2025-02-21 13:10:06 [INFO] Deployment Processor initialized.
+2025-02-21 13:10:08 [INFO] Processing started.
+2025-02-21 13:10:08 [INFO] Template loaded successfully.
+2025-02-21 13:10:08 [INFO] Selected 2 files for processing.
+2025-02-21 13:10:08 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 13:10:08 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 13:10:08 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 13:10:08 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 13:10:08 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 13:10:08 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 13:10:08 [INFO] Manifest file written successfully.
+2025-02-21 13:10:08 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:10:09 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:10:10 [INFO] Processing complete.
+2025-02-21 13:10:23 [INFO] Deployment Processor initialized.
+2025-02-21 13:10:24 [INFO] Processing started.
+2025-02-21 13:10:24 [INFO] Template loaded successfully.
+2025-02-21 13:10:24 [INFO] Selected 2 files for processing.
+2025-02-21 13:10:24 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 13:10:24 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 13:10:24 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 13:10:24 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 13:10:24 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 13:10:24 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 13:10:24 [INFO] Manifest file written successfully.
+2025-02-21 13:10:25 [INFO] Processing complete.
+2025-02-21 13:14:45 [INFO] Deployment Processor initialized.
+2025-02-21 13:14:46 [INFO] Processing started.
+2025-02-21 13:14:46 [INFO] Template loaded successfully.
+2025-02-21 13:14:46 [INFO] Selected 2 files for processing.
+2025-02-21 13:14:46 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 13:14:46 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 13:14:46 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 13:14:46 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 13:14:46 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 13:14:46 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 13:14:46 [INFO] Manifest file written successfully.
+2025-02-21 13:14:46 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:14:48 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:14:49 [INFO] Processing complete.
+2025-02-21 13:17:19 [INFO] Deployment Processor initialized.
+2025-02-21 13:17:19 [INFO] Processing started.
+2025-02-21 13:17:19 [INFO] Template loaded successfully.
+2025-02-21 13:17:19 [INFO] Selected 2 files for processing.
+2025-02-21 13:17:19 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 13:17:20 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 13:17:20 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 13:17:20 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 13:17:20 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 13:17:20 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 13:17:20 [INFO] Manifest file written successfully.
+2025-02-21 13:17:20 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:17:21 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:17:22 [INFO] Processing complete.
+2025-02-21 13:28:01 [INFO] Deployment Processor initialized.
+2025-02-21 13:28:02 [INFO] Processing started.
+2025-02-21 13:28:02 [INFO] Template loaded successfully.
+2025-02-21 13:28:02 [INFO] Selected 2 files for processing.
+2025-02-21 13:28:02 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 13:28:02 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 13:28:02 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 13:28:02 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 13:28:02 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 13:28:02 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 13:28:02 [INFO] Manifest file written successfully.
+2025-02-21 13:28:02 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:28:03 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:28:04 [INFO] Processing complete.
+2025-02-21 13:31:25 [INFO] Deployment Processor initialized.
+2025-02-21 13:31:27 [INFO] Processing started.
+2025-02-21 13:31:27 [INFO] Template loaded successfully.
+2025-02-21 13:31:27 [INFO] Selected 2 files for processing.
+2025-02-21 13:31:27 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 13:31:27 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 13:31:27 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 13:31:27 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 13:31:27 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 13:31:27 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 13:31:27 [INFO] Manifest file written successfully.
+2025-02-21 13:31:27 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:31:28 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:31:30 [INFO] Processing complete.
+2025-02-21 13:37:39 [INFO] Deployment Processor initialized.
+2025-02-21 13:37:40 [INFO] Processing started.
+2025-02-21 13:37:40 [INFO] Template loaded successfully.
+2025-02-21 13:37:40 [INFO] Selected 2 files for processing.
+2025-02-21 13:37:40 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 13:37:40 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 13:37:40 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 13:37:40 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 13:37:40 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 13:37:40 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 13:37:40 [INFO] Manifest file written successfully.
+2025-02-21 13:37:40 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:37:42 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:37:43 [INFO] Processing complete.
+2025-02-21 13:40:31 [INFO] Deployment Processor initialized.
+2025-02-21 13:40:33 [INFO] Processing started.
+2025-02-21 13:40:33 [INFO] Template loaded successfully.
+2025-02-21 13:40:33 [INFO] Selected 2 files for processing.
+2025-02-21 13:40:33 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 13:40:33 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 13:40:33 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 13:40:33 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 13:40:33 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 13:40:33 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 13:40:33 [INFO] Manifest file written successfully.
+2025-02-21 13:40:33 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:40:34 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:40:36 [INFO] Processing complete.
+2025-02-21 13:45:03 [INFO] Deployment Processor initialized.
+2025-02-21 13:45:04 [INFO] Processing started.
+2025-02-21 13:45:04 [INFO] Template loaded successfully.
+2025-02-21 13:45:04 [INFO] Selected 2 files for processing.
+2025-02-21 13:45:04 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 13:45:04 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 13:45:04 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 13:45:04 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 13:45:04 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 13:45:04 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 13:45:04 [INFO] Manifest file written successfully.
+2025-02-21 13:45:04 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:45:05 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:45:06 [INFO] Processing complete.
+2025-02-21 13:45:33 [INFO] Deployment Processor initialized.
+2025-02-21 13:45:35 [INFO] Processing started.
+2025-02-21 13:45:35 [INFO] Template loaded successfully.
+2025-02-21 13:45:35 [INFO] Selected 2 files for processing.
+2025-02-21 13:45:35 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 13:45:35 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 13:45:35 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 13:45:35 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 13:45:35 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 13:45:35 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 13:45:35 [INFO] Manifest file written successfully.
+2025-02-21 13:45:36 [INFO] Processing complete.
+2025-02-21 13:48:41 [INFO] Deployment Processor initialized.
+2025-02-21 13:48:42 [INFO] Processing started.
+2025-02-21 13:48:42 [INFO] Template loaded successfully.
+2025-02-21 13:48:42 [INFO] Selected 2 files for processing.
+2025-02-21 13:48:42 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 13:48:42 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 13:48:42 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 13:48:42 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 13:48:42 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 13:48:42 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 13:48:42 [INFO] Manifest file written successfully.
+2025-02-21 13:48:42 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:48:43 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:48:44 [INFO] Processing complete.
+2025-02-21 13:57:44 [INFO] Deployment Processor initialized.
+2025-02-21 13:57:46 [INFO] Processing started.
+2025-02-21 13:57:46 [INFO] Template loaded successfully.
+2025-02-21 13:57:46 [INFO] Selected 2 files for processing.
+2025-02-21 13:57:46 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 13:57:46 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 13:57:46 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 13:57:46 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 13:57:46 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 13:57:46 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 13:57:46 [INFO] Manifest file written successfully.
+2025-02-21 13:57:46 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:57:47 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:57:48 [INFO] Processing complete.
+2025-02-21 13:59:27 [INFO] Deployment Processor initialized.
+2025-02-21 13:59:29 [INFO] Processing started.
+2025-02-21 13:59:29 [INFO] Template loaded successfully.
+2025-02-21 13:59:29 [INFO] Selected 2 files for processing.
+2025-02-21 13:59:29 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 13:59:29 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 13:59:29 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 13:59:29 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 13:59:29 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 13:59:29 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 13:59:29 [INFO] Manifest file written successfully.
+2025-02-21 13:59:29 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:59:30 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 13:59:31 [INFO] Processing complete.
+2025-02-21 14:01:05 [INFO] Deployment Processor initialized.
+2025-02-21 14:01:06 [INFO] Processing started.
+2025-02-21 14:01:06 [INFO] Template loaded successfully.
+2025-02-21 14:01:06 [INFO] Selected 2 files for processing.
+2025-02-21 14:01:06 [DEBUG] Parsed file: 1.Uvod.md
+2025-02-21 14:01:06 [DEBUG] Parsed file: 2.Svaznice.txt
+2025-02-21 14:01:06 [INFO] Generating HTML for: 1.Uvod.md
+2025-02-21 14:01:06 [INFO] Generated HTML: 1.Uvod.html
+2025-02-21 14:01:06 [INFO] Generating HTML for: 2.Svaznice.txt
+2025-02-21 14:01:06 [INFO] Generated HTML: 2.Svaznice.html
+2025-02-21 14:01:06 [INFO] Manifest file written successfully.
+2025-02-21 14:01:06 [ERROR] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 14:01:07 [WARNING] Warning! 2 file(s) were overwritten:
+1.Uvod.html
+2.Svaznice.html
+2025-02-21 14:01:09 [INFO] Processing complete.
