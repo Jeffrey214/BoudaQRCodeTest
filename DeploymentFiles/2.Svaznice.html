@@ -113,6 +113,12 @@
       text-align: justify;
       font-size: 1rem;
       line-height: 1.6;
+      overflow: auto;
+    }
+    .content::after {
+      content: "";
+      display: table;
+      clear: both;
     }
     /* The deploy script replaces the innerHTML of this div */
     #content-text {
@@ -147,7 +153,8 @@
     }
     .content-image {
       max-width: 100%;
-      height: auto;
+      height: auto !important;
+      object-fit: contain;
       display: block;
       margin: 10px auto;
     }
@@ -188,8 +195,8 @@
     </div>
   </div>
   <div class="content">
-    <!-- The deploy script will replace this text (using innerHTML) -->
-    <div id="content-text">test <img src="../PictureDeps/Content/Article2/testimage2.jpg" class="content-image" style="width: 25%; display: block; margin-left: auto; margin-right: auto;" onerror="this.remove()" /></div>
+    <!-- The deploy script replaces the innerHTML of this div -->
+    <div id="content-text">test <img src="../PictureDeps/Content/Article2/testimage2.jpg" class="content-image" style="width: 25%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" /></div>
   </div>
   <footer>
     <p>© 2025 Společnost přátel československého opevnění, o.p.s.<br>
@@ -205,7 +212,7 @@
        The deploy script will replace these objects with the actual language-specific content.
     */
     const titles = {'cs': `2.H1C`, 'en': `2.H1E`, 'de': `2.H1D`, 'pl': `2.H1P`};
-    const contents = {'cs': `test <img src="../PictureDeps/Content/Article2/testimage2.jpg" class="content-image" style="width: 25%; display: block; margin-left: auto; margin-right: auto;" onerror="this.remove()" />`, 'en': `Základní prohlídka je ideálním typem prohlídky, návštěvník uvidí vše podstatné. Její časová náročnost je cca 90–100 minut. Do tvrze se vstoupí srubem K – S 22a, sestoupí se po svážnici (26 schodů dolů), prochází se kolem odvodňovací štoly, minových kobek, posuvných uzávěrů, filtrovny, strojovny/elektrárny až do hlavního muničního skladu M1. Zde je umístěna expozice zbraní, munice atd. Po prohlídce exponátů výprava pokračuje hlavní galerií kolem poválečných štol a dolních kabelových komor do překladiště u odbočky v prostoru válečných kasáren. Projde pět kasárenských sálů kde se nachází pietní místo a pokračuje hlavní galerií přes výhybnu až do manipulačního muničního skladu M2 pod srubem K – S 22. Zde se nachází další expozice (pancéřové prvky a výstroj objektů opevnění, ukázky vzduchotechnických rozvodů, překážkového materiálu atd.) Odtud výprava vstoupí na horní patro srubu K – S 22 – objektu pro otočnou a výsuvnou dělovou věž (99 schodů nahoru). Odtud se po prohlídce objektu, včetně modelu otočné a výsuvné věže, vrátí do podzemí (99 schodů dolů), nahlédne do vyrovnávací šachty a od ní se vrací zpět hlavní galerií bez odbočení. Po svážnici (26 schodů nahoru) vystoupí do srubu K – S 22a a zde ukončí prohlídku tvrze. Tento typ prohlídky představuje celkem 1 550 metrů podzemím, 125 schodů vzhůru a 125 dolů.`, 'de': `2.C1D`, 'pl': `2.C1P`};
+    const contents = {'cs': `test <img src="../PictureDeps/Content/Article2/testimage2.jpg" class="content-image" style="width: 25%; display: block; margin-left: auto; margin-right: auto; height: auto;" onerror="this.remove()" />`, 'en': `Základní prohlídka je ideálním typem prohlídky, návštěvník uvidí vše podstatné. Její časová náročnost je cca 90–100 minut. Do tvrze se vstoupí srubem K – S 22a, sestoupí se po svážnici (26 schodů dolů), prochází se kolem odvodňovací štoly, minových kobek, posuvných uzávěrů, filtrovny, strojovny/elektrárny až do hlavního muničního skladu M1. Zde je umístěna expozice zbraní, munice atd. Po prohlídce exponátů výprava pokračuje hlavní galerií kolem poválečných štol a dolních kabelových komor do překladiště u odbočky v prostoru válečných kasáren. Projde pět kasárenských sálů kde se nachází pietní místo a pokračuje hlavní galerií přes výhybnu až do manipulačního muničního skladu M2 pod srubem K – S 22. Zde se nachází další expozice (pancéřové prvky a výstroj objektů opevnění, ukázky vzduchotechnických rozvodů, překážkového materiálu atd.) Odtud výprava vstoupí na horní patro srubu K – S 22 – objektu pro otočnou a výsuvnou dělovou věž (99 schodů nahoru). Odtud se po prohlídce objektu, včetně modelu otočné a výsuvné věže, vrátí do podzemí (99 schodů dolů), nahlédne do vyrovnávací šachty a od ní se vrací zpět hlavní galerií bez odbočení. Po svážnici (26 schodů nahoru) vystoupí do srubu K – S 22a a zde ukončí prohlídku tvrze. Tento typ prohlídky představuje celkem 1 550 metrů podzemím, 125 schodů vzhůru a 125 dolů.`, 'de': `2.C1D`, 'pl': `2.C1P`};
 
     function changeLanguage(lang) {
       // Update header using innerText.

@@ -28,20 +28,23 @@ DEPLOY_FOLDER = "DeploymentFiles"
 MANIFEST_FILE = os.path.join(DEPLOY_FOLDER, "manifest.txt")
 TEMPLATE_FILE = os.path.join(TEMPLATE_FOLDER, "template.html")
 
-# This helper function only strips quotes if they are actually present.
+# Helper function to remove quotes if present.
 def maybe_strip_quotes(s):
     s = s.strip()
     if s.startswith('"') and s.endswith('"'):
         return s[1:-1]
     return s
 
-# Updated js_escape now also escapes backticks.
+# Escape backticks and single quotes for JS.
 def js_escape(s):
     return s.replace("`", "\\`").replace("'", "\\'")
 
+# Remove any <img ...> tags from the given HTML.
+def remove_images(html):
+    return re.sub(r'<img[^>]*>', '', html)
+
 # --- Duplicate File Chooser Dialog ---
 def choose_file_dialog(options, title="Duplicate Files Detected", prompt="Select one file to use for this order:"):
-    # Create a modal Toplevel dialog with a listbox.
     dialog = tk.Toplevel()
     dialog.title(title)
     tk.Label(dialog, text=prompt).pack(padx=10, pady=10)
@@ -188,7 +191,6 @@ class ProcessorUI:
         # Replacement patterns in the template.
         title_re = re.compile(r'(<title>)(.*?)(</title>)', re.DOTALL | re.IGNORECASE)
         header_re = re.compile(r'(<div\s+[^>]*id=["\']header-title["\'][^>]*>)(.*?)(</div>)', re.DOTALL)
-        # Updated content regex to use a div instead of a p.
         content_re = re.compile(r'(<div\s+[^>]*id=["\']content-text["\'][^>]*>)(.*?)(</div>)', re.DOTALL)
         js_titles_re = re.compile(r'const\s+titles\s*=\s*\{[^}]*\};', re.DOTALL)
         js_contents_re = re.compile(r'const\s+contents\s*=\s*\{[^}]*\};', re.DOTALL)
@@ -204,21 +206,21 @@ class ProcessorUI:
             data = parsed_data[filename]
             mod_content = template_content
 
-            # Use our helper so that if the content is quoted (TXT file) quotes are removed,
-            # but if it's from Markdown (unquoted) it stays intact.
+            # Process title and header. Remove any image tags from the header.
             cs_title = remove_wrapping_p(maybe_strip_quotes(data["title"]["cs"]))
             cs_header = remove_wrapping_p(maybe_strip_quotes(data["header"]["cs"]))
-            cs_content = maybe_strip_quotes(data["content"]["cs"])  # Content is kept as full HTML
+            cs_header = remove_images(cs_header)
+            cs_content = maybe_strip_quotes(data["content"]["cs"])
 
             mod_content = title_re.sub(lambda m: m.group(1) + cs_title + m.group(3), mod_content)
             mod_content = header_re.sub(lambda m: m.group(1) + cs_header + m.group(3), mod_content)
             mod_content = content_re.sub(lambda m: m.group(1) + cs_content + m.group(3), mod_content)
 
-            # Build new JS objects for language switching using template literals.
-            h_cs = js_escape(remove_wrapping_p(maybe_strip_quotes(data["header"]["cs"])))
-            h_en = js_escape(remove_wrapping_p(maybe_strip_quotes(data["header"]["en"])))
-            h_de = js_escape(remove_wrapping_p(maybe_strip_quotes(data["header"]["de"])))
-            h_pl = js_escape(remove_wrapping_p(maybe_strip_quotes(data["header"]["pl"])))
+            # Build new JS objects for language switching.
+            h_cs = js_escape(remove_images(remove_wrapping_p(maybe_strip_quotes(data["header"]["cs"]))))
+            h_en = js_escape(remove_images(remove_wrapping_p(maybe_strip_quotes(data["header"]["en"]))))
+            h_de = js_escape(remove_images(remove_wrapping_p(maybe_strip_quotes(data["header"]["de"]))))
+            h_pl = js_escape(remove_images(remove_wrapping_p(maybe_strip_quotes(data["header"]["pl"]))))
             new_titles_js = f"const titles = {{'cs': `{h_cs}`, 'en': `{h_en}`, 'de': `{h_de}`, 'pl': `{h_pl}`}};"
             c_cs = js_escape(maybe_strip_quotes(data["content"]["cs"]))
             c_en = js_escape(maybe_strip_quotes(data["content"]["en"]))
@@ -234,20 +236,20 @@ class ProcessorUI:
                 if not img_code:
                     img_code = "w"
                 if img_code.lower() == "w":
-                    style = "width: 100%;"
+                    style = "width: 100%; height: auto;"
                 else:
                     size_letter = img_code[0].lower()
                     align_letter = img_code[1].lower() if len(img_code) > 1 else "c"
                     size_map = {'s': '25%', 'm': '50%', 'l': '75%'}
                     width = size_map.get(size_letter, "100%")
                     if align_letter == "c":
-                        style = f"width: {width}; display: block; margin-left: auto; margin-right: auto;"
+                        style = f"width: {width}; display: block; margin-left: auto; margin-right: auto; height: auto;"
                     elif align_letter == "l":
-                        style = f"width: {width}; float: left; margin-right: 20px;"
+                        style = f"width: {width}; float: left; margin-right: 20px; height: auto;"
                     elif align_letter == "r":
-                        style = f"width: {width}; float: right; margin-left: 20px;"
+                        style = f"width: {width}; float: right; margin-left: 20px; height: auto;"
                     else:
-                        style = f"width: {width};"
+                        style = f"width: {width}; height: auto;"
                 if img_code.lower() == "w":
                     placeholder = f"<{img_path}>"
                 else:
@@ -270,7 +272,6 @@ class ProcessorUI:
                 any_error = True
                 break
 
-            # Extract numeric order from filename for manifest.
             order_match = re.match(r"(\d+)\.", filename)
             order_str = order_match.group(1) if order_match else str(idx)
             manifest_lines.append(f"{order_str}. {output_filename}")
@@ -298,9 +299,8 @@ class ProcessorUI:
 
         if overwritten_files:
             warning_message = f"Warning! {len(overwritten_files)} file(s) were overwritten:\n" + "\n".join(overwritten_files)
-            self.log_error(warning_message)
-            messagebox.showwarning("Files Overwritten", warning_message)
             logging.warning(warning_message)
+            messagebox.showwarning("Files Overwritten", warning_message)
 
         self.status_label.config(text="Processing complete.")
         messagebox.showinfo("Done", "Processing complete. All files have been generated.")

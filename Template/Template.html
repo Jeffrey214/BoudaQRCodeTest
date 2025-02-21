@@ -113,6 +113,12 @@
       text-align: justify;
       font-size: 1rem;
       line-height: 1.6;
+      overflow: auto;
+    }
+    .content::after {
+      content: "";
+      display: table;
+      clear: both;
     }
     /* The deploy script replaces the innerHTML of this div */
     #content-text {
@@ -147,7 +153,8 @@
     }
     .content-image {
       max-width: 100%;
-      height: auto;
+      height: auto !important;
+      object-fit: contain;
       display: block;
       margin: 10px auto;
     }
@@ -188,7 +195,7 @@
     </div>
   </div>
   <div class="content">
-    <!-- The deploy script will replace this text (using innerHTML) -->
+    <!-- The deploy script replaces the innerHTML of this div -->
     <div id="content-text">Template Content</div>
   </div>
   <footer>
