@@ -6,7 +6,7 @@
   <!-- The deploy script will replace the content between <title>2.T1C</title> -->
   <title>2.T1C</title>
   <style>
-    /* Hide the page until language preference is set */
+    /* Hide page until language is set */
     body { visibility: hidden; }
     
     /* Base styles */
@@ -164,7 +164,8 @@
 </head>
 <body>
   <div class="flag-container">
-    <img src="../PictureDeps/Flags/cs.png" alt="cs" onclick="changeLanguage('cs')" class="active">
+    <!-- No flag is active by default; the script will set the active one -->
+    <img src="../PictureDeps/Flags/cs.png" alt="cs" onclick="changeLanguage('cs')">
     <img src="../PictureDeps/Flags/en.png" alt="en" onclick="changeLanguage('en')">
     <img src="../PictureDeps/Flags/de.png" alt="de" onclick="changeLanguage('de')">
     <img src="../PictureDeps/Flags/pl.png" alt="pl" onclick="changeLanguage('pl')">
@@ -209,19 +210,20 @@
     const contents = {'cs': 'test <img src="../PictureDeps/Content/Article2/testimage2.jpg" class="content-image" style="width: 25%; display: block; margin-left: auto; margin-right: auto;" onerror="this.remove()" />', 'en': 'Základní prohlídka je ideálním typem prohlídky, návštěvník uvidí vše podstatné. Její časová náročnost je cca 90–100 minut. Do tvrze se vstoupí srubem K – S 22a, sestoupí se po svážnici (26 schodů dolů), prochází se kolem odvodňovací štoly, minových kobek, posuvných uzávěrů, filtrovny, strojovny/elektrárny až do hlavního muničního skladu M1. Zde je umístěna expozice zbraní, munice atd. Po prohlídce exponátů výprava pokračuje hlavní galerií kolem poválečných štol a dolních kabelových komor do překladiště u odbočky v prostoru válečných kasáren. Projde pět kasárenských sálů kde se nachází pietní místo a pokračuje hlavní galerií přes výhybnu až do manipulačního muničního skladu M2 pod srubem K – S 22. Zde se nachází další expozice (pancéřové prvky a výstroj objektů opevnění, ukázky vzduchotechnických rozvodů, překážkového materiálu atd.) Odtud výprava vstoupí na horní patro srubu K – S 22 – objektu pro otočnou a výsuvnou dělovou věž (99 schodů nahoru). Odtud se po prohlídce objektu, včetně modelu otočné a výsuvné věže, vrátí do podzemí (99 schodů dolů), nahlédne do vyrovnávací šachty a od ní se vrací zpět hlavní galerií bez odbočení. Po svážnici (26 schodů nahoru) vystoupí do srubu K – S 22a a zde ukončí prohlídku tvrze. Tento typ prohlídky představuje celkem 1 550 metrů podzemím, 125 schodů vzhůru a 125 dolů.', 'de': '2.C1D', 'pl': '2.C1P'};
 
     function changeLanguage(lang) {
-      // Update header text using innerText.
+      // Update header using innerText.
       document.getElementById("header-title").innerText = titles[lang];
-      // Update content using innerHTML (so that any embedded image tag is rendered)
+      // Update content using innerHTML so that images render.
       document.getElementById("content-text").innerHTML = contents[lang];
-      // Update active flag for language images.
+      // Remove active class from all flag images.
       document.querySelectorAll(".flag-container img").forEach(function(img) {
         img.classList.remove("active");
       });
+      // Set the active flag based on the chosen language.
       var activeImg = document.querySelector(".flag-container img[alt='" + lang + "']");
       if (activeImg) {
         activeImg.classList.add("active");
       }
-      // Save language preference so it persists across pages.
+      // Save language preference in localStorage.
       localStorage.setItem("preferredLanguage", lang);
     }
     window.changeLanguage = changeLanguage;
@@ -289,12 +291,12 @@
     }
     window.updateNavigationArrows = updateNavigationArrows;
 
-    // On window load, check for a stored language preference.
+    // On window load, read the preferred language from localStorage (or default to 'cs'),
+    // apply it, update navigation arrows, then reveal the page.
     window.addEventListener("load", function() {
       var preferredLanguage = localStorage.getItem("preferredLanguage") || "cs";
       changeLanguage(preferredLanguage);
       updateNavigationArrows();
-      // Unhide the page once language is set.
       document.body.style.visibility = "visible";
     });
   </script>
